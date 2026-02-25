@@ -2,7 +2,9 @@
 .build/
 .swiftpm/
 *.xcodeproj/
+!BarDown-iOS/BarDown.xcodeproj/
 *.xcworkspace/
+!BarDown-iOS/BarDown.xcodeproj/project.xcworkspace/
 xcuserdata/
 DerivedData/
 
