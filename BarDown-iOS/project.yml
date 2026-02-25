@@ -28,6 +28,12 @@ targets:
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
         DEVELOPMENT_ASSET_PATHS: "\"BarDown/Preview Content\""
+        INFOPLIST_KEY_APIBaseURL: "$(API_BASE_URL)"
+        INFOPLIST_KEY_APIKey: "$(API_KEY)"
+      configs:
+        Debug:
+          API_BASE_URL: "http://localhost:8080"
+          API_KEY: ""
     dependencies:
       - package: GlassKit
   BarDownTests:

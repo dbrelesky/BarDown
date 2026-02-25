@@ -8,16 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		0DF3D3F23E98EA124B651A81 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F095E13490F78BE2F1A4CCEA /* Assets.xcassets */; };
+		4CE051E90D8913DAB7C6BB96 /* GameEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A346CA0BC3D166BB811B8DCB /* GameEndpoint.swift */; };
 		51329F73FB2E339546CCABF1 /* GlassKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3D4CAA6464DC9A7414EC1069 /* GlassKit */; };
+		5968F9C59B80301C849BC31E /* TeamModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B882045985E0A980A11BC41C /* TeamModel.swift */; };
 		5DA93E1A6C369D806A14D77A /* AppTabTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4516BA235EA9F3B2FCCE5926 /* AppTabTests.swift */; };
 		633E2899DBE9C7EE96522BFF /* BarDownApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523969EF31D6B0AB66D80F9B /* BarDownApp.swift */; };
 		6FD7D700A6473CAABA00D0C3 /* ScoreboardTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8A42FB163DAAFEE07A0C9D /* ScoreboardTab.swift */; };
 		72EE4086BEFEEBA1B8B9F30E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8771D06F4188016E33A7D7FA /* Preview Assets.xcassets */; };
 		8760B51733E1331C77F76DD4 /* RankingsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00377A6878DFF83EB4C0A0D /* RankingsTab.swift */; };
+		8AADE8D2E572D303C6B91A01 /* GameModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9F7B0D1D1F84035F44D576E /* GameModelTests.swift */; };
+		8B5B51312CFC7F2F64CBBA24 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB21E7AD5660F34C33EB724 /* APIClient.swift */; };
 		91E720BC6EA4D0B413BBF60C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A4138D6CA8505A5DC7259A /* ContentView.swift */; };
 		9BD7AA50B1C9E8F225C915DA /* TeamsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D7215DCDE3CD18D758066A /* TeamsTab.swift */; };
+		A420274BF958E92A8B2E7775 /* games-response.json in Resources */ = {isa = PBXBuildFile; fileRef = 206D10892F0676FE8186B4AC /* games-response.json */; };
 		ACCA44DC591D54F0801C15BF /* GlassAuditTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CBBA491E3D50B003EFCFDD /* GlassAuditTests.swift */; };
 		B52027274AF5FBC378DC203F /* SettingsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FEEA2CE9A2441D179686F0 /* SettingsTab.swift */; };
+		BF34DF6563591B7471318618 /* DateStripTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6E7BED270480C031B9B2C5 /* DateStripTests.swift */; };
+		D0C9D4C4B002FB28899AD171 /* GameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4388EFA9FEF0F4137A8E09DB /* GameModel.swift */; };
+		F635413F07C6211CF6426AF7 /* ScoreboardViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62BEB9A9EF1C3CAEB951D67 /* ScoreboardViewModelTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,17 +41,25 @@
 /* Begin PBXFileReference section */
 		006484B3F73032982001AC2C /* GlassKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = GlassKit; path = Packages/GlassKit; sourceTree = SOURCE_ROOT; };
 		03CBBA491E3D50B003EFCFDD /* GlassAuditTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassAuditTests.swift; sourceTree = "<group>"; };
+		206D10892F0676FE8186B4AC /* games-response.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "games-response.json"; sourceTree = "<group>"; };
+		3DB21E7AD5660F34C33EB724 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		4388EFA9FEF0F4137A8E09DB /* GameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModel.swift; sourceTree = "<group>"; };
 		4516BA235EA9F3B2FCCE5926 /* AppTabTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabTests.swift; sourceTree = "<group>"; };
 		46D7215DCDE3CD18D758066A /* TeamsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsTab.swift; sourceTree = "<group>"; };
 		523969EF31D6B0AB66D80F9B /* BarDownApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarDownApp.swift; sourceTree = "<group>"; };
 		8771D06F4188016E33A7D7FA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8A0F5CAA894721BA5D64636C /* BarDown.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = BarDown.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D6E7BED270480C031B9B2C5 /* DateStripTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateStripTests.swift; sourceTree = "<group>"; };
 		919EE70719D7F2A70BB611CA /* BarDownTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = BarDownTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A346CA0BC3D166BB811B8DCB /* GameEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEndpoint.swift; sourceTree = "<group>"; };
+		A62BEB9A9EF1C3CAEB951D67 /* ScoreboardViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreboardViewModelTests.swift; sourceTree = "<group>"; };
+		B882045985E0A980A11BC41C /* TeamModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamModel.swift; sourceTree = "<group>"; };
 		D8A4138D6CA8505A5DC7259A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		E00377A6878DFF83EB4C0A0D /* RankingsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingsTab.swift; sourceTree = "<group>"; };
 		E9FEEA2CE9A2441D179686F0 /* SettingsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTab.swift; sourceTree = "<group>"; };
 		ED8A42FB163DAAFEE07A0C9D /* ScoreboardTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreboardTab.swift; sourceTree = "<group>"; };
 		F095E13490F78BE2F1A4CCEA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F9F7B0D1D1F84035F44D576E /* GameModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModelTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,11 +74,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1219988563B5614F5331D188 /* Fixtures */ = {
+			isa = PBXGroup;
+			children = (
+				206D10892F0676FE8186B4AC /* games-response.json */,
+			);
+			path = Fixtures;
+			sourceTree = "<group>";
+		};
+		31F98EE83D9CE22FA5DAC4B0 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				3DB21E7AD5660F34C33EB724 /* APIClient.swift */,
+				A346CA0BC3D166BB811B8DCB /* GameEndpoint.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
 		4AA7A5DC591E37DF008E4E2A /* BarDownTests */ = {
 			isa = PBXGroup;
 			children = (
 				4516BA235EA9F3B2FCCE5926 /* AppTabTests.swift */,
+				8D6E7BED270480C031B9B2C5 /* DateStripTests.swift */,
+				F9F7B0D1D1F84035F44D576E /* GameModelTests.swift */,
 				03CBBA491E3D50B003EFCFDD /* GlassAuditTests.swift */,
+				A62BEB9A9EF1C3CAEB951D67 /* ScoreboardViewModelTests.swift */,
+				1219988563B5614F5331D188 /* Fixtures */,
 			);
 			path = BarDownTests;
 			sourceTree = "<group>";
@@ -102,6 +139,8 @@
 				F095E13490F78BE2F1A4CCEA /* Assets.xcassets */,
 				523969EF31D6B0AB66D80F9B /* BarDownApp.swift */,
 				D8A4138D6CA8505A5DC7259A /* ContentView.swift */,
+				D48619D9B52AC1CB6FE9D0C3 /* Models */,
+				31F98EE83D9CE22FA5DAC4B0 /* Networking */,
 				790203C51DCEECC45634034D /* Preview Content */,
 				8BF7406AA971E9E73C2683F9 /* Tabs */,
 			);
@@ -114,6 +153,15 @@
 				006484B3F73032982001AC2C /* GlassKit */,
 			);
 			path = Packages;
+			sourceTree = "<group>";
+		};
+		D48619D9B52AC1CB6FE9D0C3 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				4388EFA9FEF0F4137A8E09DB /* GameModel.swift */,
+				B882045985E0A980A11BC41C /* TeamModel.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		FD9C3E732D534E732F513A7B /* Products */ = {
@@ -133,6 +181,7 @@
 			buildConfigurationList = D25EE3B30E50FA7FD7ECEA81 /* Build configuration list for PBXNativeTarget "BarDownTests" */;
 			buildPhases = (
 				0F694C4FF7557083B5D7DB04 /* Sources */,
+				25C507D88C6D4EAEBB7F5C4B /* Resources */,
 			);
 			buildRules = (
 			);
@@ -199,6 +248,14 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		25C507D88C6D4EAEBB7F5C4B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A420274BF958E92A8B2E7775 /* games-response.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		89F3BDAE5A1248CEAB17B640 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -216,7 +273,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				5DA93E1A6C369D806A14D77A /* AppTabTests.swift in Sources */,
+				BF34DF6563591B7471318618 /* DateStripTests.swift in Sources */,
+				8AADE8D2E572D303C6B91A01 /* GameModelTests.swift in Sources */,
 				ACCA44DC591D54F0801C15BF /* GlassAuditTests.swift in Sources */,
+				F635413F07C6211CF6426AF7 /* ScoreboardViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,11 +284,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B5B51312CFC7F2F64CBBA24 /* APIClient.swift in Sources */,
 				633E2899DBE9C7EE96522BFF /* BarDownApp.swift in Sources */,
 				91E720BC6EA4D0B413BBF60C /* ContentView.swift in Sources */,
+				4CE051E90D8913DAB7C6BB96 /* GameEndpoint.swift in Sources */,
+				D0C9D4C4B002FB28899AD171 /* GameModel.swift in Sources */,
 				8760B51733E1331C77F76DD4 /* RankingsTab.swift in Sources */,
 				6FD7D700A6473CAABA00D0C3 /* ScoreboardTab.swift in Sources */,
 				B52027274AF5FBC378DC203F /* SettingsTab.swift in Sources */,
+				5968F9C59B80301C849BC31E /* TeamModel.swift in Sources */,
 				9BD7AA50B1C9E8F225C915DA /* TeamsTab.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -271,6 +335,8 @@
 				DEVELOPMENT_ASSET_PATHS = "\"BarDown/Preview Content\"";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_GENERATION_MODE = GeneratedFile;
+				INFOPLIST_KEY_APIBaseURL = "$(API_BASE_URL)";
+				INFOPLIST_KEY_APIKey = "$(API_KEY)";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -424,6 +490,8 @@
 		EF60AC14F2902A3BB90C25AB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				API_BASE_URL = "http://localhost:8080";
+				API_KEY = "";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -431,6 +499,8 @@
 				DEVELOPMENT_ASSET_PATHS = "\"BarDown/Preview Content\"";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_GENERATION_MODE = GeneratedFile;
+				INFOPLIST_KEY_APIBaseURL = "$(API_BASE_URL)";
+				INFOPLIST_KEY_APIKey = "$(API_KEY)";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
