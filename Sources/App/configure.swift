@@ -43,6 +43,7 @@ func configure(_ app: Application) async throws {
     app.migrations.add(CreateGameStats())
     app.migrations.add(CreatePlayerGameStats())
     app.migrations.add(SeedConferences())
+    app.migrations.add(SeedAllConferences())
 
     // MARK: - Auto-migrate (runs pending migrations on boot)
 
@@ -58,6 +59,7 @@ func configure(_ app: Application) async throws {
 
     if app.environment != .testing {
         let scheduler = ScraperScheduler(app: app)
+        app.scraperScheduler = scheduler  // Keep strong reference for app lifetime
         Task {
             await scheduler.start()
         }

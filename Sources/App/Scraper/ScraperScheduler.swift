@@ -5,13 +5,13 @@ import NIOCore
 /// Orchestrates scraping of D1 lacrosse data on a smart schedule.
 ///
 /// Scheduling logic:
-/// - **Live games detected**: Scrape that conference every 30 seconds
+/// - **Live games detected**: Scrape every 30 seconds
 /// - **Game day active hours** (noon-midnight ET): Scrape every 5 minutes
 /// - **Off hours / no games**: Scrape every 30 minutes
 ///
-/// The scheduler uses NIO's RepeatedTask for the base timer (simpler than VaporCron
-/// for dynamic interval adjustment). It checks game state in the database to decide
-/// which conferences need aggressive polling.
+/// The scheduler fetches ALL D1 games in a single NCAA API call per cycle (no
+/// conference filtering). Per-conference StatBroadcast box score scraping is
+/// retained for future use once those endpoints are verified.
 ///
 /// Overlap prevention: An actor-based `isRunning` flag prevents concurrent scrape jobs.
 actor ScraperScheduler {
@@ -23,20 +23,26 @@ actor ScraperScheduler {
     /// Whether a scrape cycle is currently in progress.
     private var isRunning = false
 
-    /// The base check interval in seconds. The scheduler runs at this interval
-    /// and decides what to scrape based on current state.
+    /// The base check interval in seconds.
     private let baseCheckInterval: TimeAmount = .seconds(30)
 
-    /// Phase 1 conferences with their NCAA API names for filtering.
-    private let phase1Conferences: [(abbreviation: String, ncaaName: String)] = [
+    /// All D1 conferences for StatBroadcast box score scraping (future use).
+    private let d1Conferences: [(abbreviation: String, ncaaName: String)] = [
         ("ACC", "ACC"),
         ("BIGEAST", "Big East"),
         ("B1G", "Big Ten"),
         ("PATRIOT", "Patriot"),
-        ("IVY", "Ivy League")
+        ("IVY", "Ivy League"),
+        ("CAA", "CAA"),
+        ("MAAC", "MAAC"),
+        ("AE", "America East"),
+        ("A10", "Atlantic 10"),
+        ("NEC", "NEC"),
+        ("SOCON", "SoCon"),
+        ("ASUN", "ASUN")
     ]
 
-    /// Tracks when each conference was last scraped.
+    /// Tracks when the last all-games scrape ran.
     private var lastScrapeTime: [String: Date] = [:]
 
     /// Tracks which conferences currently have live games.
@@ -53,7 +59,7 @@ actor ScraperScheduler {
 
     /// Starts the scraper scheduler. Should be called from configure.swift on app boot.
     func start() {
-        app.logger.info("ScraperScheduler: Starting with \(phase1Conferences.count) Phase 1 conferences")
+        app.logger.info("ScraperScheduler: Starting — scraping all D1 conferences")
 
         // Schedule the base timer using eventLoop
         let eventLoop = app.eventLoopGroup.next()
@@ -96,21 +102,21 @@ actor ScraperScheduler {
             // Step 2: Detect live games from database
             try await detectLiveGames()
 
-            // Step 3: Scrape based on priority
-            for conf in phase1Conferences {
-                let interval = scrapeInterval(for: conf.abbreviation, isActiveHours: isActiveHours)
-                let lastScrape = lastScrapeTime[conf.abbreviation]
+            // Step 3: Scrape all D1 games in a single call
+            let interval = scrapeInterval(isActiveHours: isActiveHours)
+            let lastScrape = lastScrapeTime["all"]
 
-                if let lastScrape = lastScrape {
-                    let elapsed = now.timeIntervalSince(lastScrape)
-                    if elapsed < interval {
-                        continue // Not time to scrape this conference yet
-                    }
+            if let lastScrape = lastScrape {
+                let elapsed = now.timeIntervalSince(lastScrape)
+                if elapsed < interval {
+                    let remaining = Int(interval - elapsed)
+                    app.logger.debug("ScraperScheduler: Skipping — next scrape in \(remaining)s")
+                    return
                 }
-
-                await scrapeConference(conf, date: now)
-                lastScrapeTime[conf.abbreviation] = now
             }
+
+            await scrapeAllGames(date: now)
+            lastScrapeTime["all"] = now
 
             let duration = Date().timeIntervalSince(startTime)
             app.logger.info("ScraperScheduler: Tick completed in \(String(format: "%.1f", duration))s")
@@ -121,6 +127,29 @@ actor ScraperScheduler {
     }
 
     // MARK: - Scraping
+
+    /// Fetches ALL D1 lacrosse games for the given date in a single NCAA API call,
+    /// then reconciles with the database. No conference filtering.
+    private func scrapeAllGames(date: Date) async {
+        let startTime = Date()
+
+        let ncaaGames = await ncaaScraper.fetchScoreboard(date: date)
+
+        if !ncaaGames.isEmpty {
+            do {
+                let result = try await reconciler.reconcileGames(scraped: ncaaGames, on: app.db)
+                let duration = Date().timeIntervalSince(startTime)
+                let durationStr = String(format: "%.1f", duration)
+                app.logger.info(
+                    "ScraperScheduler: NCAA scraped \(ncaaGames.count) games (created: \(result.created), updated: \(result.updated)) in \(durationStr)s"
+                )
+            } catch {
+                app.logger.error("ScraperScheduler: Reconciliation failed: \(error)")
+            }
+        } else {
+            app.logger.info("ScraperScheduler: No games from NCAA API for \(date)")
+        }
+    }
 
     /// Scrapes a single conference using NCAA API (primary) with StatBroadcast fallback.
     private func scrapeConference(_ conf: (abbreviation: String, ncaaName: String), date: Date) async {
@@ -243,12 +272,12 @@ actor ScraperScheduler {
 
     // MARK: - Scheduling Logic
 
-    /// Determines the appropriate scrape interval for a conference.
+    /// Determines the appropriate scrape interval for the all-games cycle.
     ///
     /// - Returns: Interval in seconds between scrapes
-    private func scrapeInterval(for conference: String, isActiveHours: Bool) -> TimeInterval {
-        // Live games: every 30 seconds
-        if liveConferences.contains(conference) {
+    private func scrapeInterval(isActiveHours: Bool) -> TimeInterval {
+        // Live games anywhere: every 30 seconds
+        if !liveConferences.isEmpty {
             return 30
         }
 
@@ -289,5 +318,18 @@ actor ScraperScheduler {
         if !liveConferences.isEmpty {
             app.logger.info("ScraperScheduler: Live conferences: \(liveConferences.sorted().joined(separator: ", "))")
         }
+    }
+}
+
+// MARK: - Application Storage
+
+extension Application {
+    private struct ScraperSchedulerKey: StorageKey {
+        typealias Value = ScraperScheduler
+    }
+
+    var scraperScheduler: ScraperScheduler? {
+        get { storage[ScraperSchedulerKey.self] }
+        set { storage[ScraperSchedulerKey.self] = newValue }
     }
 }

@@ -20,10 +20,18 @@ struct DataReconciler {
         "patriot": "PATRIOT",
         "ivy league": "IVY",
         "ivy": "IVY",
-        // Additional conferences for future phases
+        // Additional conferences
+        "caa": "CAA",
         "colonial": "CAA",
+        "maac": "MAAC",
+        "atlantic 10": "A10",
+        "a-10": "A10",
         "america east": "AE",
-        "southern": "SOCON"
+        "nec": "NEC",
+        "northeast": "NEC",
+        "southern": "SOCON",
+        "asun": "ASUN",
+        "atlantic sun": "ASUN"
     ]
 
     // MARK: - Game Reconciliation
@@ -289,7 +297,7 @@ struct DataReconciler {
             }
         }
 
-        // Fallback: return first conference (should not happen for Phase 1 conferences)
+        // Fallback: return first conference (should not happen with full conference seed)
         if let fallback = try await Conference.query(on: db).first() {
             app.logger.warning("Reconciler: Could not match conference '\(name ?? "nil")', using fallback: \(fallback.name)")
             return fallback
