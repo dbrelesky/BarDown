@@ -10,9 +10,9 @@ See: .planning/PROJECT.md (updated 2026-02-24)
 ## Current Position
 
 Phase: 3 of 7 (Scoreboard)
-Plan: 2 of 4 in current phase (03-02 complete)
+Plan: 3 of 4 in current phase (03-03 complete)
 Status: Phase 03 in progress
-Last activity: 2026-02-25 -- Completed 03-02 (Wave 0 TDD test scaffolds)
+Last activity: 2026-02-25 -- Completed 03-03 (iOS data layer: models and networking)
 
 Progress: [######....] 57%
 
@@ -29,10 +29,10 @@ Progress: [######....] 57%
 |-------|-------|-------|----------|
 | 01-data-foundation | 5 | 27 min | 5 min |
 | 02-design-system-app-shell | 2 | 34 min | 17 min |
-| 03-scoreboard | 2 | 3 min | 1.5 min |
+| 03-scoreboard | 3 | 5 min | 1.7 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-05 (3m), 02-01 (4m), 02-02 (30m), 03-01 (2m), 03-02 (1m)
+- Last 5 plans: 02-01 (4m), 02-02 (30m), 03-01 (2m), 03-02 (1m), 03-03 (2m)
 - Trend: Steady
 
 *Updated after each plan completion*
@@ -73,6 +73,10 @@ Recent decisions affecting current work:
 - [Phase 03]: .field() projection on Game.startTime to avoid full model load in dates-only query
 - [Phase 03]: Bundle(for: NSObjectSubclass) required for fixture loading in Swift Testing value-type test structs
 - [Phase 03]: TDD RED compile-error-as-failing-test pattern — test files reference types before types exist
+- [Phase 03]: INFOPLIST_KEY_ prefix injects custom keys into xcodegen-generated Info.plist (no manual Info.plist needed)
+- [Phase 03]: @MainActor on APIClient singleton — all fetchGames/fetchAvailableDates calls run on main actor matching SwiftUI ViewModel usage
+- [Phase 03]: GameStatus Int raw values (0/1/2) enable Comparable via rawValue; original status String preserved for JSON decoding
+- [Phase 03]: Empty API_KEY in Debug xcconfig — backend APIKeyMiddleware allows empty-key dev traffic with logged warning
 
 ### Pending Todos
 
@@ -94,5 +98,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-25
-Stopped at: Completed 03-02-PLAN.md (Wave 0 TDD test scaffolds)
+Stopped at: Completed 03-03-PLAN.md (iOS data layer: models and networking)
 Resume file: .planning/ROADMAP.md
