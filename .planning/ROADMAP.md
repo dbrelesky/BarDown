@@ -66,11 +66,16 @@ Plans:
   3. User can swipe the horizontal date picker to see yesterday's and tomorrow's games without leaving the scoreboard
   4. User can open a monthly calendar sheet, tap any date, and jump directly to that day's games
   5. Scoreboard shows appropriate loading spinner, "No games today" empty state, and error state with retry
-**Plans**: TBD
+**Plans**: 7 plans
 
 Plans:
-- [ ] 03-01: TBD
-- [ ] 03-02: TBD
+- [ ] 03-01-PLAN.md — Backend: add GET /api/v1/games/dates endpoint to Vapor GameController
+- [ ] 03-02-PLAN.md — Wave 0 TDD scaffolds: test fixtures + failing tests for GameModel, ViewModel, DateStrip
+- [ ] 03-03-PLAN.md — iOS data layer: GameModel/TeamModel structs + APIClient networking service
+- [ ] 03-04-PLAN.md — ScoreboardViewModel state machine + DateStripView + CalendarSheetView
+- [ ] 03-05-PLAN.md — Game card components: GameCardView, TeamRowView, ScoreCenterView, LiveIndicator (Kingfisher)
+- [ ] 03-06-PLAN.md — ScoreboardView composition: section grouping, pull-to-refresh, states, ScoreboardTab wired up
+- [ ] 03-07-PLAN.md — Human verify: visual and functional sign-off on iOS simulator
 
 ### Phase 4: Favorites & Teams
 **Goal**: Users pick their teams once, and those teams' games are always front and center across the app
