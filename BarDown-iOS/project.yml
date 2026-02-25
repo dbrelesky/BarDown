@@ -30,6 +30,17 @@ targets:
         DEVELOPMENT_ASSET_PATHS: "\"BarDown/Preview Content\""
     dependencies:
       - package: GlassKit
+  BarDownTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: BarDownTests
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.bardown.app.tests
+        GENERATE_INFOPLIST_FILE: "YES"
+    dependencies:
+      - target: BarDown
 schemes:
   BarDown:
     build:
@@ -39,6 +50,8 @@ schemes:
       config: Debug
     test:
       config: Debug
+      targets:
+        - BarDownTests
     profile:
       config: Release
     analyze:

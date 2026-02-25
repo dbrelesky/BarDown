@@ -9,21 +9,36 @@
 /* Begin PBXBuildFile section */
 		0DF3D3F23E98EA124B651A81 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F095E13490F78BE2F1A4CCEA /* Assets.xcassets */; };
 		51329F73FB2E339546CCABF1 /* GlassKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3D4CAA6464DC9A7414EC1069 /* GlassKit */; };
+		5DA93E1A6C369D806A14D77A /* AppTabTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4516BA235EA9F3B2FCCE5926 /* AppTabTests.swift */; };
 		633E2899DBE9C7EE96522BFF /* BarDownApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523969EF31D6B0AB66D80F9B /* BarDownApp.swift */; };
 		6FD7D700A6473CAABA00D0C3 /* ScoreboardTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8A42FB163DAAFEE07A0C9D /* ScoreboardTab.swift */; };
 		72EE4086BEFEEBA1B8B9F30E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8771D06F4188016E33A7D7FA /* Preview Assets.xcassets */; };
 		8760B51733E1331C77F76DD4 /* RankingsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00377A6878DFF83EB4C0A0D /* RankingsTab.swift */; };
 		91E720BC6EA4D0B413BBF60C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A4138D6CA8505A5DC7259A /* ContentView.swift */; };
 		9BD7AA50B1C9E8F225C915DA /* TeamsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D7215DCDE3CD18D758066A /* TeamsTab.swift */; };
+		ACCA44DC591D54F0801C15BF /* GlassAuditTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CBBA491E3D50B003EFCFDD /* GlassAuditTests.swift */; };
 		B52027274AF5FBC378DC203F /* SettingsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FEEA2CE9A2441D179686F0 /* SettingsTab.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		068A4B83C0FF5E01E4F65AA6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0B99FB5A3AD7C01D291A6572 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 405A4AAD1C30A3534CC573DE;
+			remoteInfo = BarDown;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		006484B3F73032982001AC2C /* GlassKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = GlassKit; path = Packages/GlassKit; sourceTree = SOURCE_ROOT; };
+		03CBBA491E3D50B003EFCFDD /* GlassAuditTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassAuditTests.swift; sourceTree = "<group>"; };
+		4516BA235EA9F3B2FCCE5926 /* AppTabTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabTests.swift; sourceTree = "<group>"; };
 		46D7215DCDE3CD18D758066A /* TeamsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsTab.swift; sourceTree = "<group>"; };
 		523969EF31D6B0AB66D80F9B /* BarDownApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarDownApp.swift; sourceTree = "<group>"; };
 		8771D06F4188016E33A7D7FA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8A0F5CAA894721BA5D64636C /* BarDown.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = BarDown.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		919EE70719D7F2A70BB611CA /* BarDownTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = BarDownTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8A4138D6CA8505A5DC7259A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		E00377A6878DFF83EB4C0A0D /* RankingsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingsTab.swift; sourceTree = "<group>"; };
 		E9FEEA2CE9A2441D179686F0 /* SettingsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTab.swift; sourceTree = "<group>"; };
@@ -43,10 +58,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4AA7A5DC591E37DF008E4E2A /* BarDownTests */ = {
+			isa = PBXGroup;
+			children = (
+				4516BA235EA9F3B2FCCE5926 /* AppTabTests.swift */,
+				03CBBA491E3D50B003EFCFDD /* GlassAuditTests.swift */,
+			);
+			path = BarDownTests;
+			sourceTree = "<group>";
+		};
 		58588AD52AC5E4E19EED88FB = {
 			isa = PBXGroup;
 			children = (
 				AF81557981A8F69BD04CBEB6 /* BarDown */,
+				4AA7A5DC591E37DF008E4E2A /* BarDownTests */,
 				B53AAB63140B6C982674EBE2 /* Packages */,
 				FD9C3E732D534E732F513A7B /* Products */,
 			);
@@ -95,6 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				8A0F5CAA894721BA5D64636C /* BarDown.app */,
+				919EE70719D7F2A70BB611CA /* BarDownTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -102,6 +128,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		1F7F920CD51F3E1560C963E6 /* BarDownTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D25EE3B30E50FA7FD7ECEA81 /* Build configuration list for PBXNativeTarget "BarDownTests" */;
+			buildPhases = (
+				0F694C4FF7557083B5D7DB04 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5FF292FB1D0D870097BBFF16 /* PBXTargetDependency */,
+			);
+			name = BarDownTests;
+			packageProductDependencies = (
+			);
+			productName = BarDownTests;
+			productReference = 919EE70719D7F2A70BB611CA /* BarDownTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		405A4AAD1C30A3534CC573DE /* BarDown */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A15C5FD2702E8054F35EAAA4 /* Build configuration list for PBXNativeTarget "BarDown" */;
@@ -149,6 +193,7 @@
 			projectRoot = "";
 			targets = (
 				405A4AAD1C30A3534CC573DE /* BarDown */,
+				1F7F920CD51F3E1560C963E6 /* BarDownTests */,
 			);
 		};
 /* End PBXProject section */
@@ -166,6 +211,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		0F694C4FF7557083B5D7DB04 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5DA93E1A6C369D806A14D77A /* AppTabTests.swift in Sources */,
+				ACCA44DC591D54F0801C15BF /* GlassAuditTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4BFF324B9751E47C440F265B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -181,7 +235,32 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		5FF292FB1D0D870097BBFF16 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 405A4AAD1C30A3534CC573DE /* BarDown */;
+			targetProxy = 068A4B83C0FF5E01E4F65AA6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		3740856893C4A2A98B59F6B3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.bardown.app.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BarDown.app/BarDown";
+			};
+			name = Debug;
+		};
 		6291F2339335475D27CC6DA1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -325,6 +404,23 @@
 			};
 			name = Debug;
 		};
+		CD09E2887D6FFA124D145AF4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.bardown.app.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BarDown.app/BarDown";
+			};
+			name = Release;
+		};
 		EF60AC14F2902A3BB90C25AB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -355,6 +451,15 @@
 			buildConfigurations = (
 				EF60AC14F2902A3BB90C25AB /* Debug */,
 				6291F2339335475D27CC6DA1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		D25EE3B30E50FA7FD7ECEA81 /* Build configuration list for PBXNativeTarget "BarDownTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3740856893C4A2A98B59F6B3 /* Debug */,
+				CD09E2887D6FFA124D145AF4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
