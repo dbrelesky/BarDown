@@ -139,7 +139,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4/5 (parallel possible) -> 6 -> 
 |-------|----------------|--------|-----------|
 | 1. Data Foundation | 5/5 | Complete | 2026-02-25 |
 | 2. Design System & App Shell | 1/2 | In progress | - |
-| 3. Scoreboard | 5/7 | In Progress|  |
+| 3. Scoreboard | 6/7 | In Progress|  |
 | 4. Favorites & Teams | 0/1 | Not started | - |
 | 5. Game Detail | 0/1 | Not started | - |
 | 6. Live Data & Play-by-Play | 0/1 | Not started | - |

@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-24)
 ## Current Position
 
 Phase: 3 of 7 (Scoreboard)
-Plan: 5 of 7 in current phase (03-05 complete)
+Plan: 6 of 7 in current phase (03-06 complete)
 Status: Phase 03 in progress
-Last activity: 2026-02-25 -- Completed 03-05 (game card components: GameCardView, TeamRowView, ScoreCenterView, LiveIndicator, Kingfisher)
+Last activity: 2026-02-25 -- Completed 03-06 (scoreboard integration: ScoreboardView, ScoreboardStates, PullToRefreshView, ScoreboardTab)
 
-Progress: [######....] 57%
+Progress: [#######...] 64%
 
 ## Performance Metrics
 
@@ -29,10 +29,10 @@ Progress: [######....] 57%
 |-------|-------|-------|----------|
 | 01-data-foundation | 5 | 27 min | 5 min |
 | 02-design-system-app-shell | 2 | 34 min | 17 min |
-| 03-scoreboard | 5 | 15 min | 3 min |
+| 03-scoreboard | 6 | 18 min | 3 min |
 
 **Recent Trend:**
-- Last 5 plans: 03-01 (2m), 03-02 (1m), 03-03 (2m), 03-04 (5m), 03-05 (5m)
+- Last 5 plans: 03-02 (1m), 03-03 (2m), 03-04 (5m), 03-05 (5m), 03-06 (3m)
 - Trend: Steady
 
 *Updated after each plan completion*
@@ -83,6 +83,10 @@ Recent decisions affecting current work:
 - [Phase 03]: Kingfisher 8.x uses single 'Kingfisher' product (not 'KingfisherSwiftUI') and single 'import Kingfisher' statement — products were merged in v6+
 - [Phase 03]: GlassAuditTests scan for literal '.glassEffect' string including comments — guard comments must not contain the string
 - [Phase 03]: GameCardView uses Color(.secondarySystemGroupedBackground) for DESG-02 opaque card background
+- [Phase 03]: nonisolated(unsafe) on ScrollOffsetKey.defaultValue required for Swift 6 strict concurrency compliance
+- [Phase 03]: Darwin.sin(Double(phase)) required to resolve ambiguous 'sin' overloads in Swift 6 with CGFloat
+- [Phase 03]: No .refreshable modifier in ScoreboardView — custom pull detection via ScrollOffsetKey at 60pt threshold
+- [Phase 03]: finalCollapseCount=3 with showAllFinals toggle; resets on date change for fresh per-day view
 
 ### Pending Todos
 
@@ -104,5 +108,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-25
-Stopped at: Completed 03-05-PLAN.md (game card components: GameCardView, TeamRowView, ScoreCenterView, LiveIndicator, Kingfisher)
+Stopped at: Completed 03-06-PLAN.md (scoreboard integration: ScoreboardView, ScoreboardStates, PullToRefreshView, ScoreboardTab)
 Resume file: .planning/ROADMAP.md
