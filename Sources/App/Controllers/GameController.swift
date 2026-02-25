@@ -5,6 +5,7 @@ struct GameController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
         let games = routes.grouped("api", "v1", "games")
         games.get("today", use: todaysGames)
+        games.get("dates", use: gameDates)
         games.get("date", ":date", use: gamesByDate)
         games.get(":gameID", "boxscore", use: boxScore)
     }
@@ -63,6 +64,39 @@ struct GameController: RouteCollection {
         }
 
         return BoxScoreResponse(from: game)
+    }
+
+    @Sendable
+    func gameDates(req: Request) async throws -> [String] {
+        let fromString = req.query[String.self, at: "from"]
+        let toString = req.query[String.self, at: "to"]
+
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.timeZone = TimeZone(identifier: "America/New_York")!
+
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(identifier: "America/New_York")!
+
+        // Default: today ± 30 days
+        let now = Date()
+        let defaultFrom = calendar.date(byAdding: .day, value: -30, to: calendar.startOfDay(for: now))!
+        let defaultTo = calendar.date(byAdding: .day, value: 31, to: calendar.startOfDay(for: now))!
+
+        let from = fromString.flatMap { formatter.date(from: $0) } ?? defaultFrom
+        let to = toString.flatMap { formatter.date(from: $0) }.map {
+            calendar.date(byAdding: .day, value: 1, to: calendar.startOfDay(for: $0))!
+        } ?? defaultTo
+
+        let games = try await Game.query(on: req.db)
+            .filter(\.$startTime >= from)
+            .filter(\.$startTime < to)
+            .field(\.$startTime)
+            .all()
+
+        // Extract unique Eastern-timezone date strings
+        let uniqueDates = Set(games.map { formatter.string(from: $0.startTime) })
+        return uniqueDates.sorted()
     }
 
     // MARK: - Private Helpers
