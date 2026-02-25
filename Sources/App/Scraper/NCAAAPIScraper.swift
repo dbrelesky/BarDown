@@ -1,172 +1,91 @@
 import Vapor
 
-/// Scrapes game data from the NCAA's public Casablanca JSON API.
+/// Scrapes game data from the NCAA's GraphQL API (sdataprod.ncaa.com).
 ///
-/// ## Verified Endpoints (2026-02-24)
+/// ## Data Source (2026-02-25 audit)
 ///
-/// - Scoreboard: `data.ncaa.com/casablanca/scoreboard/lacrosse-men/d1/{yyyy}/{mm}/{dd}/scoreboard.json`
-///   Returns JSON with `games` array, each containing team names, scores, game state, conferences.
-///   Tested with 2025 lacrosse season dates -- returns 30+ games on active days.
+/// The NCAA Casablanca JSON API (`data.ncaa.com/casablanca/...`) returns NoSuchKey for
+/// 2026 season dates — that endpoint is deprecated. The scoreboard now uses Apollo
+/// persisted queries at `sdataprod.ncaa.com`. The SHA-256 hash for `GetContests_web`
+/// is embedded in the scoreboard page HTML and is stable between NCAA deployments.
 ///
-/// - Box Score: `data.ncaa.com/casablanca/game/{gameID}/boxscore.json`
-///   Returns 404 for lacrosse games tested. NOT AVAILABLE for lacrosse as of audit date.
+/// ## Strategy
+/// 1. Fetch `ncaa.com/scoreboard/lacrosse-men/d1` to extract the `GetContests_web` hash.
+/// 2. Cache hash; refresh automatically on `PERSISTED_QUERY_NOT_FOUND`.
+/// 3. Query `GetContests_web` with `seasonYear: 2025` (NCAA uses academic-year start).
 ///
-/// - Game Info: `data.ncaa.com/casablanca/game/{gameID}/gameInfo.json`
-///   Returns 404 for lacrosse games tested. NOT AVAILABLE.
+/// ## Team Logos
+/// `https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/{seoname}.svg`
+/// Verified working for all D1 men's lacrosse teams.
 ///
-/// ## Data Quality
-///
-/// The NCAA scoreboard provides:
-/// - Team full names, short names, char6 abbreviations, SEO slugs
-/// - Scores (as strings, need Int conversion)
-/// - Game state: "pre", "live", "final"
-/// - Current period and contest clock for live games
-/// - Conference names for both teams
-/// - Start time as epoch string and formatted date
-/// - Win/loss records in description field (e.g., "(8-3)")
-/// - Rankings (if ranked)
-///
-/// Missing from NCAA API:
-/// - Individual player stats (no box score endpoint for lacrosse)
-/// - Quarter-by-quarter scoring breakdown
-/// - Detailed team stats (shots, saves, ground balls, etc.)
+/// ## Missing vs Casablanca
+/// - Win/loss records (DataReconciler accumulates these from game results)
+/// - Quarter-by-quarter scoring (not in scoreboard query)
 struct NCAAAPIScraper {
     let app: Application
 
-    /// Maximum retry attempts for failed requests.
-    private let maxRetries = 3
+    /// Cached `GetContests_web` SHA-256 hash. Refreshed on PERSISTED_QUERY_NOT_FOUND.
+    nonisolated(unsafe) static var cachedQueryHash: String? = nil
 
-    /// Delay between retries in nanoseconds.
-    private let retryDelay: UInt64 = 2_000_000_000 // 2 seconds
+    /// NCAA uses academic-year start as seasonYear (2025-26 season → 2025).
+    private static let seasonYear = 2025
+    private static let graphqlURL = "https://sdataprod.ncaa.com"
+    private static let scoreboardPageURL = "https://www.ncaa.com/scoreboard/lacrosse-men/d1"
+    private static let logoBaseURL = "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl"
 
-    // MARK: - Codable Structs Matching NCAA JSON Structure
+    // MARK: - GraphQL Response Models
 
-    struct NCAAScoreboard: Codable {
-        let games: [NCAAGameWrapper]
-        let updated_at: String?  // swiftlint:disable:this identifier_name
+    private struct GraphQLResponse: Codable {
+        let data: ContestsWrapper?
+        let errors: [GQLError]?
+
+        struct ContestsWrapper: Codable {
+            let contests: [Contest]
+        }
+
+        struct GQLError: Codable {
+            let message: String
+            let extensions: Extensions?
+            struct Extensions: Codable {
+                let code: String
+            }
+        }
     }
 
-    struct NCAAGameWrapper: Codable {
-        let game: NCAAGame
+    private struct Contest: Codable {
+        let contestId: Int
+        let gameState: String       // "P" = scheduled, "F" = final, other = live
+        let currentPeriod: String
+        let contestClock: String
+        let startTimeEpoch: Int
+        let teams: [ContestTeam]
     }
 
-    struct NCAAGame: Codable {
-        let gameID: String
-        let away: NCAATeamScore
-        let home: NCAATeamScore
-        let finalMessage: String?
-        let bracketRound: String?
-        let title: String?
-        let contestName: String?
-        let url: String?
-        let network: String?
-        let liveVideoEnabled: Bool?
-        let startTime: String?
-        let startTimeEpoch: String?
-        let bracketId: String?
-        let gameState: String       // "pre", "live", "final"
-        let startDate: String?
-        let currentPeriod: String?
-        let videoState: String?
-        let bracketRegion: String?
-        let contestClock: String?
-    }
-
-    struct NCAATeamScore: Codable {
-        let score: String?
-        let names: NCAATeamNames
-        let winner: Bool?
-        let seed: String?
-        let description: String?    // Record like "(8-3)"
-        let rank: String?
-        let conferences: [NCAAConference]?
-    }
-
-    struct NCAATeamNames: Codable {
-        let char6: String
-        let short: String
-        let seo: String
-        let full: String
-    }
-
-    struct NCAAConference: Codable {
-        let conferenceName: String
+    private struct ContestTeam: Codable {
+        let isHome: Bool
+        let seoname: String
+        let nameShort: String
+        let name6Char: String
+        let teamRank: Int?
+        let score: Int?
         let conferenceSeo: String
     }
 
     // MARK: - Public API
 
-    /// Fetches all D1 men's lacrosse games for a given date from the NCAA API.
-    ///
-    /// - Parameter date: The date to fetch games for
-    /// - Returns: Array of scraped games with NCAA data
+    /// Fetches all D1 men's lacrosse games for a given date.
     func fetchScoreboard(date: Date) async -> [ScrapedGame] {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy/MM/dd"
+        formatter.dateFormat = "MM/dd/yyyy"
         formatter.timeZone = TimeZone(identifier: "America/New_York")
-        let datePath = formatter.string(from: date)
-
-        let url = "https://data.ncaa.com/casablanca/scoreboard/lacrosse-men/d1/\(datePath)/scoreboard.json"
-
-        guard let scoreboard = await fetchWithRetry(url: url) else {
-            return []
-        }
-
-        return scoreboard.games.map { wrapper in
-            let game = wrapper.game
-            let homeScore = Int(game.home.score ?? "0") ?? 0
-            let awayScore = Int(game.away.score ?? "0") ?? 0
-
-            // Parse start time from epoch
-            var startTime: Date? = nil
-            if let epochStr = game.startTimeEpoch, let epoch = TimeInterval(epochStr) {
-                startTime = Date(timeIntervalSince1970: epoch)
-            }
-
-            // Map NCAA game state to our standard
-            let status: String
-            switch game.gameState.lowercased() {
-            case "final": status = "final"
-            case "live": status = "live"
-            default: status = "scheduled"
-            }
-
-            return ScrapedGame(
-                homeTeamName: game.home.names.short,
-                awayTeamName: game.away.names.short,
-                homeScore: homeScore,
-                awayScore: awayScore,
-                status: status,
-                period: game.currentPeriod,
-                clock: game.contestClock,
-                startTime: startTime,
-                startTimeEpoch: game.startTimeEpoch,
-                externalGameID: nil,
-                conferenceID: nil,
-                homeConference: game.home.conferences?.first?.conferenceName,
-                awayConference: game.away.conferences?.first?.conferenceName,
-                homeTeamShort: game.home.names.char6,
-                awayTeamShort: game.away.names.char6,
-                homeTeamFull: game.home.names.full,
-                awayTeamFull: game.away.names.full,
-                homeRank: game.home.rank,
-                awayRank: game.away.rank,
-                homeRecord: game.home.description,
-                awayRecord: game.away.description
-            )
-        }
+        let contestDate = formatter.string(from: date)
+        return await fetchContests(contestDate: contestDate, attempt: 1)
     }
 
-    /// Fetches scoreboard games filtered to a specific conference.
-    ///
-    /// - Parameters:
-    ///   - date: The date to fetch games for
-    ///   - conference: Conference name to filter by (e.g., "Big Ten", "ACC")
-    /// - Returns: Games where at least one team belongs to the specified conference
+    /// Fetches games for a date, filtered to teams in a specific conference.
     func fetchScoreboard(date: Date, conference: String) async -> [ScrapedGame] {
         let allGames = await fetchScoreboard(date: date)
         let conferenceLower = conference.lowercased()
-
         return allGames.filter { game in
             let homeConf = game.homeConference?.lowercased() ?? ""
             let awayConf = game.awayConference?.lowercased() ?? ""
@@ -174,48 +93,141 @@ struct NCAAAPIScraper {
         }
     }
 
-    // MARK: - Private Methods
+    // MARK: - Private Fetch
 
-    /// Fetches and decodes the NCAA scoreboard JSON with retry logic.
-    private func fetchWithRetry(url: String) async -> NCAAScoreboard? {
-        for attempt in 1...maxRetries {
-            do {
-                let uri = URI(string: url)
-                let response = try await app.client.get(uri) { req in
-                    // Set a reasonable timeout and user agent
-                    req.headers.add(name: .userAgent, value: "BarDown/1.0")
-                }
-
-                // Check for rate limiting
-                if response.status == .tooManyRequests {
-                    app.logger.warning("NCAA API: Rate limited on attempt \(attempt)")
-                    if attempt < maxRetries {
-                        try await Task.sleep(nanoseconds: retryDelay * UInt64(attempt))
-                    }
-                    continue
-                }
-
-                guard response.status == .ok else {
-                    app.logger.info("NCAA API: HTTP \(response.status) for \(url)")
-                    return nil // Non-retryable (404 means no games for that date)
-                }
-
-                let scoreboard = try response.content.decode(NCAAScoreboard.self)
-                app.logger.info("NCAA API: Fetched \(scoreboard.games.count) games from \(url)")
-                return scoreboard
-
-            } catch let error as DecodingError {
-                app.logger.error("NCAA API: Decode error for \(url): \(error)")
-                return nil // Don't retry decode errors
-            } catch {
-                app.logger.warning("NCAA API: Network error on attempt \(attempt) for \(url): \(error)")
-                if attempt < maxRetries {
-                    try? await Task.sleep(nanoseconds: retryDelay)
-                }
-            }
+    private func fetchContests(contestDate: String, attempt: Int) async -> [ScrapedGame] {
+        if NCAAAPIScraper.cachedQueryHash == nil {
+            NCAAAPIScraper.cachedQueryHash = await fetchQueryHash()
+        }
+        guard let hash = NCAAAPIScraper.cachedQueryHash else {
+            app.logger.error("NCAAAPIScraper: Could not obtain GraphQL hash from scoreboard page")
+            return []
         }
 
-        app.logger.error("NCAA API: All \(maxRetries) attempts failed for \(url)")
-        return nil
+        let vars = """
+            {"contestDate":"\(contestDate)","sportCode":"MLA","division":1,"seasonYear":\(Self.seasonYear)}
+            """
+        let exts = """
+            {"persistedQuery":{"version":1,"sha256Hash":"\(hash)"}}
+            """
+        guard let encodedVars = vars.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+              let encodedExts = exts.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
+            return []
+        }
+
+        let urlStr = "\(Self.graphqlURL)?meta=GetContests_web&extensions=\(encodedExts)&variables=\(encodedVars)"
+        let uri = URI(string: urlStr)
+
+        do {
+            let response = try await app.client.get(uri) { req in
+                req.headers.add(name: .userAgent, value: "BarDown/1.0")
+                req.headers.add(name: .accept, value: "application/json")
+            }
+
+            let body = try response.content.decode(GraphQLResponse.self)
+
+            // Hash expired — retry once with a fresh hash
+            if let errors = body.errors,
+               errors.contains(where: { $0.extensions?.code == "PERSISTED_QUERY_NOT_FOUND" }),
+               attempt < 2 {
+                app.logger.info("NCAAAPIScraper: Hash expired, refreshing")
+                NCAAAPIScraper.cachedQueryHash = await fetchQueryHash()
+                return await fetchContests(contestDate: contestDate, attempt: attempt + 1)
+            }
+
+            guard let contests = body.data?.contests else {
+                if let errors = body.errors {
+                    app.logger.warning("NCAAAPIScraper: GraphQL errors: \(errors.map { $0.message })")
+                }
+                return []
+            }
+
+            let games = contests.compactMap { mapContest($0) }
+            app.logger.info("NCAAAPIScraper: Fetched \(games.count) games for \(contestDate)")
+            return games
+
+        } catch {
+            app.logger.error("NCAAAPIScraper: Request failed for \(contestDate): \(error)")
+            return []
+        }
+    }
+
+    // MARK: - Hash Fetching
+
+    private func fetchQueryHash() async -> String? {
+        let uri = URI(string: Self.scoreboardPageURL)
+        do {
+            let response = try await app.client.get(uri) { req in
+                req.headers.add(name: .userAgent, value: "BarDown/1.0")
+            }
+            guard let body = response.body,
+                  let html = body.getString(at: body.readerIndex, length: body.readableBytes) else {
+                return nil
+            }
+            return extractHash(from: html)
+        } catch {
+            app.logger.error("NCAAAPIScraper: Failed to fetch scoreboard page for hash: \(error)")
+            return nil
+        }
+    }
+
+    private func extractHash(from html: String) -> String? {
+        let marker = #""GetContests_web":""#
+        guard let start = html.range(of: marker)?.upperBound else { return nil }
+        let remaining = html[start...]
+        guard let end = remaining.firstIndex(of: "\"") else { return nil }
+        let hash = String(remaining[remaining.startIndex..<end])
+        guard hash.count == 64, hash.allSatisfy({ $0.isHexDigit }) else { return nil }
+        app.logger.info("NCAAAPIScraper: Extracted fresh hash \(hash.prefix(8))...")
+        return hash
+    }
+
+    // MARK: - Mapping
+
+    private func mapContest(_ contest: Contest) -> ScrapedGame? {
+        guard let home = contest.teams.first(where: { $0.isHome }),
+              let away = contest.teams.first(where: { !$0.isHome }) else {
+            app.logger.warning("NCAAAPIScraper: Contest \(contest.contestId) missing a team")
+            return nil
+        }
+
+        let status: String
+        switch contest.gameState {
+        case "F": status = "final"
+        case "P": status = "scheduled"
+        default:  status = "live"
+        }
+
+        let startTime = Date(timeIntervalSince1970: TimeInterval(contest.startTimeEpoch))
+
+        // conferenceSeo uses hyphens ("big-ten"); conferenceNameMap uses spaces ("big ten")
+        let homeConf = home.conferenceSeo.replacingOccurrences(of: "-", with: " ")
+        let awayConf = away.conferenceSeo.replacingOccurrences(of: "-", with: " ")
+
+        return ScrapedGame(
+            homeTeamName: home.nameShort,
+            awayTeamName: away.nameShort,
+            homeScore: home.score ?? 0,
+            awayScore: away.score ?? 0,
+            status: status,
+            period: contest.currentPeriod.isEmpty ? nil : contest.currentPeriod,
+            clock: contest.contestClock.isEmpty ? nil : contest.contestClock,
+            startTime: startTime,
+            startTimeEpoch: String(contest.startTimeEpoch),
+            externalGameID: String(contest.contestId),
+            conferenceID: nil,
+            homeConference: homeConf,
+            awayConference: awayConf,
+            homeTeamShort: home.name6Char.uppercased(),
+            awayTeamShort: away.name6Char.uppercased(),
+            homeTeamFull: home.nameShort,
+            awayTeamFull: away.nameShort,
+            homeRank: home.teamRank.map { String($0) },
+            awayRank: away.teamRank.map { String($0) },
+            homeRecord: nil,
+            awayRecord: nil,
+            homeLogoURL: "\(Self.logoBaseURL)/\(home.seoname).svg",
+            awayLogoURL: "\(Self.logoBaseURL)/\(away.seoname).svg"
+        )
     }
 }

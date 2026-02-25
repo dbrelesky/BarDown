@@ -50,6 +50,7 @@ struct DataReconciler {
                     conference: scrapedGame.homeConference,
                     rank: scrapedGame.homeRank,
                     record: scrapedGame.homeRecord,
+                    logoURL: scrapedGame.homeLogoURL,
                     on: db
                 )
                 let awayTeam = try await resolveTeam(
@@ -59,6 +60,7 @@ struct DataReconciler {
                     conference: scrapedGame.awayConference,
                     rank: scrapedGame.awayRank,
                     record: scrapedGame.awayRecord,
+                    logoURL: scrapedGame.awayLogoURL,
                     on: db
                 )
 
@@ -141,6 +143,7 @@ struct DataReconciler {
         conference: String?,
         rank: String?,
         record: String?,
+        logoURL: String? = nil,
         on db: Database
     ) async throws -> Team {
         // Try exact name match first
@@ -158,7 +161,7 @@ struct DataReconciler {
                 .first()
         }
         if let existing = byName {
-            try await updateTeamMetadata(existing, rank: rank, record: record, on: db)
+            try await updateTeamMetadata(existing, rank: rank, record: record, logoURL: logoURL, on: db)
             return existing
         }
 
@@ -168,7 +171,7 @@ struct DataReconciler {
             .filter(\.$abbreviation == shortName)
             .first()
         {
-            try await updateTeamMetadata(existing, rank: rank, record: record, on: db)
+            try await updateTeamMetadata(existing, rank: rank, record: record, logoURL: logoURL, on: db)
             return existing
         }
 
@@ -197,13 +200,18 @@ struct DataReconciler {
             team.losses = parsed.losses
         }
 
+        // Set logo URL if provided
+        if let logoURL = logoURL {
+            team.logoAssetName = logoURL
+        }
+
         try await team.save(on: db)
         app.logger.info("Reconciler: Created new team '\(team.name)' in conference \(conferenceRecord.abbreviation)")
         return team
     }
 
     /// Updates team ranking and record if new data is available.
-    private func updateTeamMetadata(_ team: Team, rank: String?, record: String?, on db: Database) async throws {
+    private func updateTeamMetadata(_ team: Team, rank: String?, record: String?, logoURL: String? = nil, on db: Database) async throws {
         var changed = false
 
         if let rankStr = rank, !rankStr.isEmpty, let rankInt = Int(rankStr) {
@@ -220,6 +228,11 @@ struct DataReconciler {
                 team.losses = parsed.losses
                 changed = true
             }
+        }
+
+        if let logoURL = logoURL, team.logoAssetName == nil {
+            team.logoAssetName = logoURL
+            changed = true
         }
 
         if changed {

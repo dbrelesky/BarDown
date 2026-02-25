@@ -24,6 +24,8 @@ struct ScrapedGame {
     let awayRank: String?
     let homeRecord: String?
     let awayRecord: String?
+    let homeLogoURL: String?
+    let awayLogoURL: String?
 }
 
 /// Parses StatBroadcast scoreboard HTML/fragments into structured game data.
@@ -111,7 +113,9 @@ struct ScoreboardParser {
                 homeRank: nil,
                 awayRank: nil,
                 homeRecord: nil,
-                awayRecord: nil
+                awayRecord: nil,
+                homeLogoURL: nil,
+                awayLogoURL: nil
             )
             games.append(game)
         }
@@ -151,7 +155,9 @@ struct ScoreboardParser {
                 homeRank: nil,
                 awayRank: nil,
                 homeRecord: nil,
-                awayRecord: nil
+                awayRecord: nil,
+                homeLogoURL: nil,
+                awayLogoURL: nil
             )
             games.append(game)
         }
@@ -189,7 +195,9 @@ struct ScoreboardParser {
                 homeRank: nil,
                 awayRank: nil,
                 homeRecord: nil,
-                awayRecord: nil
+                awayRecord: nil,
+                homeLogoURL: nil,
+                awayLogoURL: nil
             )
             games.append(game)
         }
