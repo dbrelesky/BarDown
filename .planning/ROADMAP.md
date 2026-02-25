@@ -73,7 +73,7 @@ Plans:
 - [ ] 03-02-PLAN.md — Wave 0 TDD scaffolds: test fixtures + failing tests for GameModel, ViewModel, DateStrip
 - [ ] 03-03-PLAN.md — iOS data layer: GameModel/TeamModel structs + APIClient networking service
 - [ ] 03-04-PLAN.md — ScoreboardViewModel state machine + DateStripView + CalendarSheetView
-- [ ] 03-05-PLAN.md — Game card components: GameCardView, TeamRowView, ScoreCenterView, LiveIndicator (Kingfisher)
+- [x] 03-05-PLAN.md — Game card components: GameCardView, TeamRowView, ScoreCenterView, LiveIndicator (Kingfisher)
 - [ ] 03-06-PLAN.md — ScoreboardView composition: section grouping, pull-to-refresh, states, ScoreboardTab wired up
 - [ ] 03-07-PLAN.md — Human verify: visual and functional sign-off on iOS simulator
 
@@ -139,7 +139,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4/5 (parallel possible) -> 6 -> 
 |-------|----------------|--------|-----------|
 | 1. Data Foundation | 5/5 | Complete | 2026-02-25 |
 | 2. Design System & App Shell | 1/2 | In progress | - |
-| 3. Scoreboard | 4/7 | In Progress|  |
+| 3. Scoreboard | 5/7 | In Progress|  |
 | 4. Favorites & Teams | 0/1 | Not started | - |
 | 5. Game Detail | 0/1 | Not started | - |
 | 6. Live Data & Play-by-Play | 0/1 | Not started | - |

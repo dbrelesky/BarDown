@@ -10,16 +10,16 @@ See: .planning/PROJECT.md (updated 2026-02-24)
 ## Current Position
 
 Phase: 3 of 7 (Scoreboard)
-Plan: 4 of 4 in current phase (03-04 complete)
-Status: Phase 03 complete
-Last activity: 2026-02-25 -- Completed 03-04 (ScoreboardViewModel state machine, DateStripView, CalendarSheetView)
+Plan: 5 of 7 in current phase (03-05 complete)
+Status: Phase 03 in progress
+Last activity: 2026-02-25 -- Completed 03-05 (game card components: GameCardView, TeamRowView, ScoreCenterView, LiveIndicator, Kingfisher)
 
 Progress: [######....] 57%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 8
+- Total plans completed: 9
 - Average duration: 5 min
 - Total execution time: 0.7 hours
 
@@ -29,10 +29,10 @@ Progress: [######....] 57%
 |-------|-------|-------|----------|
 | 01-data-foundation | 5 | 27 min | 5 min |
 | 02-design-system-app-shell | 2 | 34 min | 17 min |
-| 03-scoreboard | 4 | 10 min | 2.5 min |
+| 03-scoreboard | 5 | 15 min | 3 min |
 
 **Recent Trend:**
-- Last 5 plans: 02-02 (30m), 03-01 (2m), 03-02 (1m), 03-03 (2m), 03-04 (5m)
+- Last 5 plans: 03-01 (2m), 03-02 (1m), 03-03 (2m), 03-04 (5m), 03-05 (5m)
 - Trend: Steady
 
 *Updated after each plan completion*
@@ -80,6 +80,9 @@ Recent decisions affecting current work:
 - [Phase 03]: ScoreboardViewModel.selectedDate initialized in init() — covariant Self cannot be used in stored property default in a class
 - [Phase 03]: DateStripViewModel is nonisolated (not @MainActor) — tests call init/displayDates/label() from nonisolated context; only select() is @MainActor
 - [Phase 03]: xcodegen regeneration required when adding new Swift files to include them in xcodeproj
+- [Phase 03]: Kingfisher 8.x uses single 'Kingfisher' product (not 'KingfisherSwiftUI') and single 'import Kingfisher' statement — products were merged in v6+
+- [Phase 03]: GlassAuditTests scan for literal '.glassEffect' string including comments — guard comments must not contain the string
+- [Phase 03]: GameCardView uses Color(.secondarySystemGroupedBackground) for DESG-02 opaque card background
 
 ### Pending Todos
 
@@ -101,5 +104,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-25
-Stopped at: Completed 03-04-PLAN.md (ScoreboardViewModel state machine, DateStripView, CalendarSheetView)
+Stopped at: Completed 03-05-PLAN.md (game card components: GameCardView, TeamRowView, ScoreCenterView, LiveIndicator, Kingfisher)
 Resume file: .planning/ROADMAP.md
