@@ -1,0 +1,95 @@
+[
+  {
+    "id": "11111111-1111-1111-1111-111111111111",
+    "homeTeam": {
+      "id": "aaaa0000-0000-0000-0000-000000000001",
+      "name": "Duke Blue Devils",
+      "abbreviation": "DUKE",
+      "conference": "ACC",
+      "logoAssetName": null,
+      "record": "5-2",
+      "ranking": 3
+    },
+    "awayTeam": {
+      "id": "aaaa0000-0000-0000-0000-000000000002",
+      "name": "Maryland Terrapins",
+      "abbreviation": "UMD",
+      "conference": "Big Ten",
+      "logoAssetName": null,
+      "record": "4-3",
+      "ranking": null
+    },
+    "homeScore": 8,
+    "awayScore": 6,
+    "status": "live",
+    "period": "3rd",
+    "clock": "7:42",
+    "startTime": "2026-03-15T16:00:00Z",
+    "quarterScores": [
+      { "quarter": 1, "homeScore": 3, "awayScore": 2 },
+      { "quarter": 2, "homeScore": 2, "awayScore": 1 },
+      { "quarter": 3, "homeScore": 3, "awayScore": 3 }
+    ]
+  },
+  {
+    "id": "22222222-2222-2222-2222-222222222222",
+    "homeTeam": {
+      "id": "aaaa0000-0000-0000-0000-000000000003",
+      "name": "Virginia Cavaliers",
+      "abbreviation": "UVA",
+      "conference": "ACC",
+      "logoAssetName": null,
+      "record": "6-1",
+      "ranking": 1
+    },
+    "awayTeam": {
+      "id": "aaaa0000-0000-0000-0000-000000000004",
+      "name": "Notre Dame Fighting Irish",
+      "abbreviation": "ND",
+      "conference": "ACC",
+      "logoAssetName": null,
+      "record": "3-4",
+      "ranking": null
+    },
+    "homeScore": 0,
+    "awayScore": 0,
+    "status": "scheduled",
+    "period": null,
+    "clock": null,
+    "startTime": "2026-03-15T20:00:00Z",
+    "quarterScores": []
+  },
+  {
+    "id": "33333333-3333-3333-3333-333333333333",
+    "homeTeam": {
+      "id": "aaaa0000-0000-0000-0000-000000000005",
+      "name": "Syracuse Orange",
+      "abbreviation": "SYR",
+      "conference": "ACC",
+      "logoAssetName": null,
+      "record": "5-3",
+      "ranking": null
+    },
+    "awayTeam": {
+      "id": "aaaa0000-0000-0000-0000-000000000006",
+      "name": "Cornell Big Red",
+      "abbreviation": "COR",
+      "conference": "Ivy League",
+      "logoAssetName": null,
+      "record": "4-2",
+      "ranking": null
+    },
+    "homeScore": 12,
+    "awayScore": 9,
+    "status": "final",
+    "period": null,
+    "clock": null,
+    "startTime": "2026-03-15T13:00:00Z",
+    "quarterScores": [
+      { "quarter": 1, "homeScore": 4, "awayScore": 2 },
+      { "quarter": 2, "homeScore": 3, "awayScore": 3 },
+      { "quarter": 3, "homeScore": 2, "awayScore": 2 },
+      { "quarter": 4, "homeScore": 3, "awayScore": 2 }
+    ]
+  }
+]
