@@ -1,0 +1,28 @@
+# Swift / Xcode
+.build/
+.swiftpm/
+*.xcodeproj/
+*.xcworkspace/
+xcuserdata/
+DerivedData/
+
+# Environment
+.env
+.env.*
+
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Art assets (too large for git — use LFS or external storage)
+art/
+
+# IDE
+.vscode/
+.idea/
+
+# Claude Code
+.claude/
+
+# Docker
+docker-compose.override.yml

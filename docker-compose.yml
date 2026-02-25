@@ -1,0 +1,14 @@
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: vapor
+      POSTGRES_PASSWORD: vapor
+      POSTGRES_DB: bardown
+    ports:
+      - "5432:5432"
+    volumes:
+      - bardown_pgdata:/var/lib/postgresql/data
+
+volumes:
+  bardown_pgdata:
