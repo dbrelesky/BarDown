@@ -5,34 +5,34 @@
 See: .planning/PROJECT.md (updated 2026-02-24)
 
 **Core value:** When a fan opens BarDown on game day, they instantly see every live D1 lacrosse score and can drill into any game for full, real-time detail -- faster and more beautifully than any alternative.
-**Current focus:** Phase 2: Design System & App Shell
+**Current focus:** Phase 2 complete, advancing to Phase 3
 
 ## Current Position
 
-Phase: 2 of 7 (Design System & App Shell)
-Plan: 1 of 2 in current phase
-Status: Plan 02-01 complete, Plan 02-02 next
-Last activity: 2026-02-25 -- Completed 02-01 (Xcode project + GlassKit)
+Phase: 2 of 7 (Design System & App Shell) -- COMPLETE
+Plan: 2 of 2 in current phase (all plans complete)
+Status: Phase 02 complete, ready for Phase 03
+Last activity: 2026-02-25 -- Completed 02-02 (Tab navigation + app shell)
 
-Progress: [####......] 40%
+Progress: [#####.....] 50%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 6
+- Total plans completed: 7
 - Average duration: 5 min
-- Total execution time: 0.6 hours
+- Total execution time: 0.7 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-data-foundation | 5 | 27 min | 5 min |
-| 02-design-system-app-shell | 1 | 4 min | 4 min |
+| 02-design-system-app-shell | 2 | 34 min | 17 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-02 (7m), 01-03 (8m), 01-04 (3m), 01-05 (3m), 02-01 (4m)
-- Trend: Steady
+- Last 5 plans: 01-03 (8m), 01-04 (3m), 01-05 (3m), 02-01 (4m), 02-02 (30m)
+- Trend: Steady (02-02 included human verification checkpoint)
 
 *Updated after each plan completion*
 
@@ -64,6 +64,9 @@ Recent decisions affecting current work:
 - [Phase 02]: swift-tools-version:6.2 required for GlassKit (.iOS(.v26) platform needs PackageDescription 6.2)
 - [Phase 02]: xcodegen used for Xcode project generation (reproducible project.yml)
 - [Phase 02]: .gitignore updated to track BarDown-iOS xcodeproj (exception from *.xcodeproj/ rule)
+- [Phase 02]: Tab API (not deprecated tabItem) for iOS 26 tab navigation
+- [Phase 02]: System Liquid Glass on tab bar -- no manual .glassEffect() needed
+- [Phase 02]: Opaque .regularMaterial for placeholder content (DESG-02 compliance)
 
 ### Pending Todos
 
@@ -85,5 +88,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-25
-Stopped at: Completed 02-01-PLAN.md
+Stopped at: Completed 02-02-PLAN.md (Phase 02 complete)
 Resume file: .planning/ROADMAP.md
