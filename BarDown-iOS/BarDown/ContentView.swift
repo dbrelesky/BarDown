@@ -40,7 +40,6 @@ struct ContentView: View {
                 SettingsTab()
             }
         }
-        .tabBarMinimizeBehavior(.onScrollDown)
     }
 }
 

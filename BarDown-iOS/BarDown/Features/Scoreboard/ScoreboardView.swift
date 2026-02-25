@@ -10,96 +10,90 @@ struct ScoreboardView: View {
     private let finalCollapseCount = 3
 
     var body: some View {
-        ScrollView {
-            // Pull-to-refresh offset anchor
-            GeometryReader { geo in
-                Color.clear
-                    .preference(
-                        key: ScrollOffsetKey.self,
-                        value: geo.frame(in: .named("scoreboardScroll")).minY
-                    )
-            }
-            .frame(height: 0)
+        ZStack(alignment: .top) {
+            ScrollView {
+                // Date strip (pinned below NavigationBar, above content)
+                DateStripView(viewModel: viewModel)
+                    .padding(.vertical, 4)
 
-            // Custom pull-to-refresh indicator
-            if viewModel.isRefreshing || pullOffset > pullThreshold {
-                PullToRefreshView(isRefreshing: viewModel.isRefreshing)
-                    .transition(.opacity.combined(with: .move(edge: .top)))
-            }
+                // Content area
+                VStack(spacing: 12) {
+                    switch viewModel.state {
+                    case .loading:
+                        ScoreboardLoadingView()
 
-            // Date strip (pinned below NavigationBar, above content)
-            DateStripView(viewModel: viewModel)
-                .padding(.vertical, 4)
+                    case .empty:
+                        ScoreboardEmptyView()
 
-            // Content area
-            VStack(spacing: 12) {
-                switch viewModel.state {
-                case .loading:
-                    ScoreboardLoadingView()
-
-                case .empty:
-                    ScoreboardEmptyView()
-
-                case .error(let message):
-                    ScoreboardErrorView(message: message) {
-                        await viewModel.refresh()
-                    }
-
-                case .loaded(let games):
-                    let liveGames = games.filter(\.isLive)
-                    let upcomingGames = games.filter(\.isScheduled)
-                    let finalGames = games.filter(\.isFinal)
-
-                    // LIVE section
-                    if !liveGames.isEmpty {
-                        SectionHeader(title: "LIVE")
-                        ForEach(liveGames) { game in
-                            GameCardView(game: game)
+                    case .error(let message):
+                        ScoreboardErrorView(message: message) {
+                            await viewModel.refresh()
                         }
-                        .padding(.horizontal)
-                    }
 
-                    // UPCOMING section
-                    if !upcomingGames.isEmpty {
-                        SectionHeader(title: "UPCOMING")
-                        ForEach(upcomingGames) { game in
-                            GameCardView(game: game)
-                        }
-                        .padding(.horizontal)
-                    }
+                    case .loaded(let games):
+                        let liveGames = games.filter(\.isLive)
+                        let upcomingGames = games.filter(\.isScheduled)
+                        let finalGames = games.filter(\.isFinal)
 
-                    // FINAL section (with collapse)
-                    if !finalGames.isEmpty {
-                        SectionHeader(title: "FINAL")
-                        let displayedFinals = showAllFinals
-                            ? finalGames
-                            : Array(finalGames.prefix(finalCollapseCount))
-
-                        ForEach(displayedFinals) { game in
-                            GameCardView(game: game)
-                        }
-                        .padding(.horizontal)
-
-                        if finalGames.count > finalCollapseCount && !showAllFinals {
-                            Button("Show \(finalGames.count - finalCollapseCount) more final games") {
-                                withAnimation(.easeInOut(duration: 0.3)) {
-                                    showAllFinals = true
-                                }
+                        // LIVE section
+                        if !liveGames.isEmpty {
+                            SectionHeader(title: "LIVE")
+                            ForEach(liveGames) { game in
+                                GameCardView(game: game)
                             }
-                            .font(.subheadline)
-                            .padding(.vertical, 8)
+                            .padding(.horizontal)
+                        }
+
+                        // UPCOMING section
+                        if !upcomingGames.isEmpty {
+                            SectionHeader(title: "UPCOMING")
+                            ForEach(upcomingGames) { game in
+                                GameCardView(game: game)
+                            }
+                            .padding(.horizontal)
+                        }
+
+                        // FINAL section (with collapse)
+                        if !finalGames.isEmpty {
+                            SectionHeader(title: "FINAL")
+                            let displayedFinals = showAllFinals
+                                ? finalGames
+                                : Array(finalGames.prefix(finalCollapseCount))
+
+                            ForEach(displayedFinals) { game in
+                                GameCardView(game: game)
+                            }
+                            .padding(.horizontal)
+
+                            if finalGames.count > finalCollapseCount && !showAllFinals {
+                                Button("Show \(finalGames.count - finalCollapseCount) more final games") {
+                                    withAnimation(.easeInOut(duration: 0.3)) {
+                                        showAllFinals = true
+                                    }
+                                }
+                                .font(.subheadline)
+                                .padding(.vertical, 8)
+                            }
                         }
                     }
                 }
+                .padding(.bottom, 20)
             }
-            .padding(.bottom, 20)
-        }
-        .coordinateSpace(name: "scoreboardScroll")
-        .onPreferenceChange(ScrollOffsetKey.self) { offset in
-            pullOffset = offset
-            // Trigger refresh when pulled past threshold and not already refreshing
-            if offset > pullThreshold && !viewModel.isRefreshing {
-                Task { await viewModel.refresh() }
+            .onScrollGeometryChange(for: CGFloat.self) { geometry in
+                -(geometry.contentOffset.y + geometry.contentInsets.top)
+            } action: { oldPull, newPull in
+                pullOffset = max(0, newPull)
+                // Trigger on the leading edge only (crossing threshold going up)
+                if newPull > pullThreshold && oldPull <= pullThreshold && !viewModel.isRefreshing {
+                    Task { await viewModel.refresh() }
+                }
+            }
+
+            // Pull-to-refresh indicator as overlay so it doesn't affect scroll layout
+            if viewModel.isRefreshing || pullOffset > pullThreshold {
+                PullToRefreshView(isRefreshing: viewModel.isRefreshing)
+                    .padding(.top, 8)
+                    .transition(.opacity.combined(with: .move(edge: .top)))
             }
         }
         .task {
