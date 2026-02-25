@@ -10,6 +10,19 @@ struct ScoreCenterView: View {
         return f
     }()
 
+    /// Returns "TBD" when NCAA hasn't announced the game time (midnight ET placeholder).
+    private var scheduledTimeLabel: String {
+        let cal = Calendar.current
+        var et = cal
+        et.timeZone = TimeZone(identifier: "America/New_York")!
+        let hour = et.component(.hour, from: game.startTime)
+        let minute = et.component(.minute, from: game.startTime)
+        if hour == 0 && minute == 0 {
+            return "TBD"
+        }
+        return timeFormatter.string(from: game.startTime)
+    }
+
     var body: some View {
         VStack(spacing: 2) {
             switch game.gameStatus {
@@ -36,8 +49,7 @@ struct ScoreCenterView: View {
                     .foregroundStyle(.secondary)
 
             case .scheduled:
-                // Show start time + venue placeholder
-                Text(timeFormatter.string(from: game.startTime))
+                Text(scheduledTimeLabel)
                     .font(.callout)
                     .fontWeight(.medium)
                     .foregroundStyle(.primary)
