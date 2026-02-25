@@ -10,9 +10,9 @@ See: .planning/PROJECT.md (updated 2026-02-24)
 ## Current Position
 
 Phase: 3 of 7 (Scoreboard)
-Plan: 3 of 4 in current phase (03-03 complete)
-Status: Phase 03 in progress
-Last activity: 2026-02-25 -- Completed 03-03 (iOS data layer: models and networking)
+Plan: 4 of 4 in current phase (03-04 complete)
+Status: Phase 03 complete
+Last activity: 2026-02-25 -- Completed 03-04 (ScoreboardViewModel state machine, DateStripView, CalendarSheetView)
 
 Progress: [######....] 57%
 
@@ -29,10 +29,10 @@ Progress: [######....] 57%
 |-------|-------|-------|----------|
 | 01-data-foundation | 5 | 27 min | 5 min |
 | 02-design-system-app-shell | 2 | 34 min | 17 min |
-| 03-scoreboard | 3 | 5 min | 1.7 min |
+| 03-scoreboard | 4 | 10 min | 2.5 min |
 
 **Recent Trend:**
-- Last 5 plans: 02-01 (4m), 02-02 (30m), 03-01 (2m), 03-02 (1m), 03-03 (2m)
+- Last 5 plans: 02-02 (30m), 03-01 (2m), 03-02 (1m), 03-03 (2m), 03-04 (5m)
 - Trend: Steady
 
 *Updated after each plan completion*
@@ -77,6 +77,9 @@ Recent decisions affecting current work:
 - [Phase 03]: @MainActor on APIClient singleton — all fetchGames/fetchAvailableDates calls run on main actor matching SwiftUI ViewModel usage
 - [Phase 03]: GameStatus Int raw values (0/1/2) enable Comparable via rawValue; original status String preserved for JSON decoding
 - [Phase 03]: Empty API_KEY in Debug xcconfig — backend APIKeyMiddleware allows empty-key dev traffic with logged warning
+- [Phase 03]: ScoreboardViewModel.selectedDate initialized in init() — covariant Self cannot be used in stored property default in a class
+- [Phase 03]: DateStripViewModel is nonisolated (not @MainActor) — tests call init/displayDates/label() from nonisolated context; only select() is @MainActor
+- [Phase 03]: xcodegen regeneration required when adding new Swift files to include them in xcodeproj
 
 ### Pending Todos
 
@@ -98,5 +101,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-25
-Stopped at: Completed 03-03-PLAN.md (iOS data layer: models and networking)
+Stopped at: Completed 03-04-PLAN.md (ScoreboardViewModel state machine, DateStripView, CalendarSheetView)
 Resume file: .planning/ROADMAP.md

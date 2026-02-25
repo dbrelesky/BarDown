@@ -13,7 +13,7 @@ Requirements for TestFlight beta. Each maps to roadmap phases.
 - [x] **SCOR-02**: Each game card shows both teams' official logos, score (or start time), period/status, and team rankings if available
 - [x] **SCOR-03**: Each game card shows team season records and national ranking when available
 - [x] **SCOR-04**: User can navigate between dates via horizontal date picker always visible at top
-- [ ] **SCOR-05**: User can drill into full monthly calendar view to jump to any date
+- [x] **SCOR-05**: User can drill into full monthly calendar view to jump to any date
 - [x] **SCOR-06**: User can pull down to refresh scoreboard data
 - [x] **SCOR-07**: Scoreboard shows clear loading, empty ("no games today"), and error states
 
@@ -30,7 +30,7 @@ Requirements for TestFlight beta. Each maps to roadmap phases.
 - [ ] **TEAM-02**: Favorite teams' games are pinned to top of scoreboard and highlighted
 - [ ] **TEAM-03**: User can filter scoreboard by conference
 - [ ] **TEAM-04**: User can view per-team schedule ("when does my team play next?")
-- [ ] **TEAM-05**: Official school logos displayed prominently in every game card and team view
+- [x] **TEAM-05**: Official school logos displayed prominently in every game card and team view
 
 ### Rankings & Leaderboards
 
@@ -102,7 +102,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | SCOR-02 | Phase 3 | Complete |
 | SCOR-03 | Phase 3 | Complete |
 | SCOR-04 | Phase 3 | Complete |
-| SCOR-05 | Phase 3 | Pending |
+| SCOR-05 | Phase 3 | Complete |
 | SCOR-06 | Phase 3 | Complete |
 | SCOR-07 | Phase 3 | Complete |
 | GAME-01 | Phase 5 | Pending |
@@ -113,7 +113,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | TEAM-02 | Phase 4 | Pending |
 | TEAM-03 | Phase 4 | Pending |
 | TEAM-04 | Phase 4 | Pending |
-| TEAM-05 | Phase 3 | Pending |
+| TEAM-05 | Phase 3 | Complete |
 | RANK-01 | Phase 7 | Pending |
 | RANK-02 | Phase 7 | Pending |
 | RANK-03 | Phase 7 | Pending |
