@@ -10,27 +10,28 @@ See: .planning/PROJECT.md (updated 2026-02-24)
 ## Current Position
 
 Phase: 2 of 7 (Design System & App Shell)
-Plan: 0 of 1 in current phase
-Status: Phase 2 not started (Phase 1 verified and complete)
-Last activity: 2026-02-25 -- Phase 1 approved and marked complete
+Plan: 1 of 2 in current phase
+Status: Plan 02-01 complete, Plan 02-02 next
+Last activity: 2026-02-25 -- Completed 02-01 (Xcode project + GlassKit)
 
-Progress: [###.......] 30%
+Progress: [####......] 40%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 5
+- Total plans completed: 6
 - Average duration: 5 min
-- Total execution time: 0.5 hours
+- Total execution time: 0.6 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-data-foundation | 5 | 27 min | 5 min |
+| 02-design-system-app-shell | 1 | 4 min | 4 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (6m), 01-02 (7m), 01-03 (8m), 01-04 (3m), 01-05 (3m)
+- Last 5 plans: 01-02 (7m), 01-03 (8m), 01-04 (3m), 01-05 (3m), 02-01 (4m)
 - Trend: Steady
 
 *Updated after each plan completion*
@@ -60,6 +61,9 @@ Recent decisions affecting current work:
 - Development fallback: allow all API traffic when API_KEY env var is unset, with logged warning
 - Rate limiter outer, API key inner in middleware chain -- reject abusive clients before key validation
 - [Phase 01]: Box score scraping gated behind statBroadcastID and game status (live/final) with per-game error isolation
+- [Phase 02]: swift-tools-version:6.2 required for GlassKit (.iOS(.v26) platform needs PackageDescription 6.2)
+- [Phase 02]: xcodegen used for Xcode project generation (reproducible project.yml)
+- [Phase 02]: .gitignore updated to track BarDown-iOS xcodeproj (exception from *.xcodeproj/ rule)
 
 ### Pending Todos
 
@@ -81,5 +85,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-25
-Stopped at: Phase 1 verified and approved — ready for Phase 2
+Stopped at: Completed 02-01-PLAN.md
 Resume file: .planning/ROADMAP.md

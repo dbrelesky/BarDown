@@ -53,7 +53,7 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 02-01-PLAN.md -- Xcode project scaffold, GlassKit local Swift package, dark mode default, universal target
+- [x] 02-01-PLAN.md -- Xcode project scaffold, GlassKit local Swift package, dark mode default, universal target
 - [ ] 02-02-PLAN.md -- Tab navigation with Liquid Glass chrome, placeholder screens, glass audit script
 
 ### Phase 3: Scoreboard
@@ -133,7 +133,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4/5 (parallel possible) -> 6 -> 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Data Foundation | 5/5 | Complete | 2026-02-25 |
-| 2. Design System & App Shell | 0/2 | Not started | - |
+| 2. Design System & App Shell | 1/2 | In progress | - |
 | 3. Scoreboard | 0/2 | Not started | - |
 | 4. Favorites & Teams | 0/1 | Not started | - |
 | 5. Game Detail | 0/1 | Not started | - |

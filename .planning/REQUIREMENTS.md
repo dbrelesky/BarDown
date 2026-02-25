@@ -42,9 +42,9 @@ Requirements for TestFlight beta. Each maps to roadmap phases.
 
 - [ ] **DESG-01**: App uses Apple Liquid Glass design language for all navigation chrome (tab bar, toolbar, sheets)
 - [ ] **DESG-02**: Content layer (game cards, stats, logos) is opaque and vivid — no glass on content
-- [ ] **DESG-03**: Dark mode is the hero aesthetic; light mode supported automatically via OS preference
-- [ ] **DESG-04**: App runs as universal iPhone + iPad app
-- [ ] **DESG-05**: GlassKit design system module centralizes all glass decisions for consistency
+- [x] **DESG-03**: Dark mode is the hero aesthetic; light mode supported automatically via OS preference
+- [x] **DESG-04**: App runs as universal iPhone + iPad app
+- [x] **DESG-05**: GlassKit design system module centralizes all glass decisions for consistency
 
 ### Data & Backend
 
@@ -119,9 +119,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | RANK-03 | Phase 7 | Pending |
 | DESG-01 | Phase 2 | Pending |
 | DESG-02 | Phase 2 | Pending |
-| DESG-03 | Phase 2 | Pending |
-| DESG-04 | Phase 2 | Pending |
-| DESG-05 | Phase 2 | Pending |
+| DESG-03 | Phase 2 | Complete |
+| DESG-04 | Phase 2 | Complete |
+| DESG-05 | Phase 2 | Complete |
 | DATA-01 | Phase 1 | Complete |
 | DATA-02 | Phase 1 | Complete |
 | DATA-03 | Phase 1 | Complete |
