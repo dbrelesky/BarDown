@@ -10,16 +10,16 @@ See: .planning/PROJECT.md (updated 2026-02-24)
 ## Current Position
 
 Phase: 3 of 7 (Scoreboard)
-Plan: 1 of 4 in current phase (03-01 complete)
+Plan: 2 of 4 in current phase (03-02 complete)
 Status: Phase 03 in progress
-Last activity: 2026-02-25 -- Completed 03-01 (Game dates endpoint)
+Last activity: 2026-02-25 -- Completed 03-02 (Wave 0 TDD test scaffolds)
 
-Progress: [#####.....] 50%
+Progress: [######....] 57%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 7
+- Total plans completed: 8
 - Average duration: 5 min
 - Total execution time: 0.7 hours
 
@@ -29,10 +29,10 @@ Progress: [#####.....] 50%
 |-------|-------|-------|----------|
 | 01-data-foundation | 5 | 27 min | 5 min |
 | 02-design-system-app-shell | 2 | 34 min | 17 min |
-| 03-scoreboard | 1 | 2 min | 2 min |
+| 03-scoreboard | 2 | 3 min | 1.5 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-04 (3m), 01-05 (3m), 02-01 (4m), 02-02 (30m), 03-01 (2m)
+- Last 5 plans: 01-05 (3m), 02-01 (4m), 02-02 (30m), 03-01 (2m), 03-02 (1m)
 - Trend: Steady
 
 *Updated after each plan completion*
@@ -71,6 +71,8 @@ Recent decisions affecting current work:
 - [Phase 03]: Set-based deduplication in Swift instead of Fluent .unique() — cross-driver compatibility
 - [Phase 03]: Default ±30-day window for /api/v1/games/dates matches iOS date strip scroll range
 - [Phase 03]: .field() projection on Game.startTime to avoid full model load in dates-only query
+- [Phase 03]: Bundle(for: NSObjectSubclass) required for fixture loading in Swift Testing value-type test structs
+- [Phase 03]: TDD RED compile-error-as-failing-test pattern — test files reference types before types exist
 
 ### Pending Todos
 
@@ -92,5 +94,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-25
-Stopped at: Completed 03-01-PLAN.md (GET /api/v1/games/dates endpoint)
+Stopped at: Completed 03-02-PLAN.md (Wave 0 TDD test scaffolds)
 Resume file: .planning/ROADMAP.md
