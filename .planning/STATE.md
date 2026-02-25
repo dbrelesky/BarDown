@@ -5,14 +5,14 @@
 See: .planning/PROJECT.md (updated 2026-02-24)
 
 **Core value:** When a fan opens BarDown on game day, they instantly see every live D1 lacrosse score and can drill into any game for full, real-time detail -- faster and more beautifully than any alternative.
-**Current focus:** Phase 2 complete, advancing to Phase 3
+**Current focus:** Phase 3 in progress -- Scoreboard
 
 ## Current Position
 
-Phase: 2 of 7 (Design System & App Shell) -- COMPLETE
-Plan: 2 of 2 in current phase (all plans complete)
-Status: Phase 02 complete, ready for Phase 03
-Last activity: 2026-02-25 -- Completed 02-02 (Tab navigation + app shell)
+Phase: 3 of 7 (Scoreboard)
+Plan: 1 of 4 in current phase (03-01 complete)
+Status: Phase 03 in progress
+Last activity: 2026-02-25 -- Completed 03-01 (Game dates endpoint)
 
 Progress: [#####.....] 50%
 
@@ -29,10 +29,11 @@ Progress: [#####.....] 50%
 |-------|-------|-------|----------|
 | 01-data-foundation | 5 | 27 min | 5 min |
 | 02-design-system-app-shell | 2 | 34 min | 17 min |
+| 03-scoreboard | 1 | 2 min | 2 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-03 (8m), 01-04 (3m), 01-05 (3m), 02-01 (4m), 02-02 (30m)
-- Trend: Steady (02-02 included human verification checkpoint)
+- Last 5 plans: 01-04 (3m), 01-05 (3m), 02-01 (4m), 02-02 (30m), 03-01 (2m)
+- Trend: Steady
 
 *Updated after each plan completion*
 
@@ -67,6 +68,9 @@ Recent decisions affecting current work:
 - [Phase 02]: Tab API (not deprecated tabItem) for iOS 26 tab navigation
 - [Phase 02]: System Liquid Glass on tab bar -- no manual .glassEffect() needed
 - [Phase 02]: Opaque .regularMaterial for placeholder content (DESG-02 compliance)
+- [Phase 03]: Set-based deduplication in Swift instead of Fluent .unique() — cross-driver compatibility
+- [Phase 03]: Default ±30-day window for /api/v1/games/dates matches iOS date strip scroll range
+- [Phase 03]: .field() projection on Game.startTime to avoid full model load in dates-only query
 
 ### Pending Todos
 
@@ -88,5 +92,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-25
-Stopped at: Completed 02-02-PLAN.md (Phase 02 complete)
+Stopped at: Completed 03-01-PLAN.md (GET /api/v1/games/dates endpoint)
 Resume file: .planning/ROADMAP.md

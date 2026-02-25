@@ -12,7 +12,7 @@ Requirements for TestFlight beta. Each maps to roadmap phases.
 - [ ] **SCOR-01**: User sees all D1 lacrosse games for today (live, upcoming, final) immediately on app launch
 - [ ] **SCOR-02**: Each game card shows both teams' official logos, score (or start time), period/status, and team rankings if available
 - [ ] **SCOR-03**: Each game card shows team season records and national ranking when available
-- [ ] **SCOR-04**: User can navigate between dates via horizontal date picker always visible at top
+- [x] **SCOR-04**: User can navigate between dates via horizontal date picker always visible at top
 - [ ] **SCOR-05**: User can drill into full monthly calendar view to jump to any date
 - [ ] **SCOR-06**: User can pull down to refresh scoreboard data
 - [ ] **SCOR-07**: Scoreboard shows clear loading, empty ("no games today"), and error states
@@ -101,7 +101,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | SCOR-01 | Phase 3 | Pending |
 | SCOR-02 | Phase 3 | Pending |
 | SCOR-03 | Phase 3 | Pending |
-| SCOR-04 | Phase 3 | Pending |
+| SCOR-04 | Phase 3 | Complete |
 | SCOR-05 | Phase 3 | Pending |
 | SCOR-06 | Phase 3 | Pending |
 | SCOR-07 | Phase 3 | Pending |
