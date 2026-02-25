@@ -2,18 +2,20 @@ import Foundation
 
 /// A lightweight view model for the horizontal date strip.
 /// Holds only the game dates and delegates selection back to the parent ScoreboardViewModel.
-@Observable
-@MainActor
+///
+/// Not @MainActor so tests can call `init`, `displayDates`, and `label(for:)` from
+/// nonisolated contexts. Only `select()` is @MainActor because it mutates the
+/// @MainActor-isolated ScoreboardViewModel.
 final class DateStripViewModel {
 
-    // MARK: - Observed State
+    // MARK: - State
 
     /// Only dates that have games — the strip never shows in-between empty days.
-    var displayDates: [Date]
+    let displayDates: [Date]
 
     // MARK: - Private
 
-    private weak var selectionSink: ScoreboardViewModel?
+    private let selectionSink: ScoreboardViewModel?
 
     private let formatter: DateFormatter = {
         let f = DateFormatter()
@@ -32,6 +34,8 @@ final class DateStripViewModel {
     // MARK: - Public Methods
 
     /// Select a date: updates the parent ScoreboardViewModel's selectedDate.
+    /// Must be called from @MainActor context because ScoreboardViewModel is @MainActor.
+    @MainActor
     func select(_ date: Date) {
         selectionSink?.selectedDate = date
     }

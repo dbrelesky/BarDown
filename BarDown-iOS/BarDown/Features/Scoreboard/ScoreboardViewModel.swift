@@ -25,7 +25,7 @@ final class ScoreboardViewModel {
     // MARK: - Observed State
 
     var state: State = .loading
-    var selectedDate: Date = Self.easternStartOfToday()
+    var selectedDate: Date
     var gameDates: [Date] = []   // only dates with games, for the date strip
     var isRefreshing: Bool = false
 
@@ -35,6 +35,7 @@ final class ScoreboardViewModel {
 
     init(apiClient: APIClient = .shared) {
         self.apiClient = apiClient
+        self.selectedDate = ScoreboardViewModel.easternStartOfToday()
     }
 
     // MARK: - Public Methods (network-facing)

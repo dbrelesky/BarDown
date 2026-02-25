@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		05C512EC741C2F8FF0567B60 /* DateStripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEFBBFA6E77E53AB07F363F8 /* DateStripView.swift */; };
 		0DF3D3F23E98EA124B651A81 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F095E13490F78BE2F1A4CCEA /* Assets.xcassets */; };
 		4CE051E90D8913DAB7C6BB96 /* GameEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A346CA0BC3D166BB811B8DCB /* GameEndpoint.swift */; };
 		51329F73FB2E339546CCABF1 /* GlassKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3D4CAA6464DC9A7414EC1069 /* GlassKit */; };
 		5968F9C59B80301C849BC31E /* TeamModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B882045985E0A980A11BC41C /* TeamModel.swift */; };
 		5DA93E1A6C369D806A14D77A /* AppTabTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4516BA235EA9F3B2FCCE5926 /* AppTabTests.swift */; };
 		633E2899DBE9C7EE96522BFF /* BarDownApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523969EF31D6B0AB66D80F9B /* BarDownApp.swift */; };
+		6FA18055659AF44452C88412 /* ScoreboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F33CE0B415CC99B7FDDA2A /* ScoreboardViewModel.swift */; };
 		6FD7D700A6473CAABA00D0C3 /* ScoreboardTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8A42FB163DAAFEE07A0C9D /* ScoreboardTab.swift */; };
 		72EE4086BEFEEBA1B8B9F30E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8771D06F4188016E33A7D7FA /* Preview Assets.xcassets */; };
 		8760B51733E1331C77F76DD4 /* RankingsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00377A6878DFF83EB4C0A0D /* RankingsTab.swift */; };
@@ -25,6 +27,8 @@
 		B52027274AF5FBC378DC203F /* SettingsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FEEA2CE9A2441D179686F0 /* SettingsTab.swift */; };
 		BF34DF6563591B7471318618 /* DateStripTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6E7BED270480C031B9B2C5 /* DateStripTests.swift */; };
 		D0C9D4C4B002FB28899AD171 /* GameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4388EFA9FEF0F4137A8E09DB /* GameModel.swift */; };
+		D72C93F9B16EABA1C820C16B /* DateStripViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FC9B6A9B2A13DFE30CA9C2 /* DateStripViewModel.swift */; };
+		ECA14BA8FB9BDA427F9B6F4B /* CalendarSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1161598EB2C36CF02884CE16 /* CalendarSheetView.swift */; };
 		F635413F07C6211CF6426AF7 /* ScoreboardViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62BEB9A9EF1C3CAEB951D67 /* ScoreboardViewModelTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +45,8 @@
 /* Begin PBXFileReference section */
 		006484B3F73032982001AC2C /* GlassKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = GlassKit; path = Packages/GlassKit; sourceTree = SOURCE_ROOT; };
 		03CBBA491E3D50B003EFCFDD /* GlassAuditTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassAuditTests.swift; sourceTree = "<group>"; };
+		1161598EB2C36CF02884CE16 /* CalendarSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSheetView.swift; sourceTree = "<group>"; };
+		19FC9B6A9B2A13DFE30CA9C2 /* DateStripViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateStripViewModel.swift; sourceTree = "<group>"; };
 		206D10892F0676FE8186B4AC /* games-response.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "games-response.json"; sourceTree = "<group>"; };
 		3DB21E7AD5660F34C33EB724 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		4388EFA9FEF0F4137A8E09DB /* GameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModel.swift; sourceTree = "<group>"; };
@@ -51,6 +57,7 @@
 		8A0F5CAA894721BA5D64636C /* BarDown.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = BarDown.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D6E7BED270480C031B9B2C5 /* DateStripTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateStripTests.swift; sourceTree = "<group>"; };
 		919EE70719D7F2A70BB611CA /* BarDownTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = BarDownTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		92F33CE0B415CC99B7FDDA2A /* ScoreboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreboardViewModel.swift; sourceTree = "<group>"; };
 		A346CA0BC3D166BB811B8DCB /* GameEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEndpoint.swift; sourceTree = "<group>"; };
 		A62BEB9A9EF1C3CAEB951D67 /* ScoreboardViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreboardViewModelTests.swift; sourceTree = "<group>"; };
 		B882045985E0A980A11BC41C /* TeamModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamModel.swift; sourceTree = "<group>"; };
@@ -58,6 +65,7 @@
 		E00377A6878DFF83EB4C0A0D /* RankingsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingsTab.swift; sourceTree = "<group>"; };
 		E9FEEA2CE9A2441D179686F0 /* SettingsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTab.swift; sourceTree = "<group>"; };
 		ED8A42FB163DAAFEE07A0C9D /* ScoreboardTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreboardTab.swift; sourceTree = "<group>"; };
+		EEFBBFA6E77E53AB07F363F8 /* DateStripView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateStripView.swift; sourceTree = "<group>"; };
 		F095E13490F78BE2F1A4CCEA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F9F7B0D1D1F84035F44D576E /* GameModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModelTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -122,6 +130,14 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		8588AE68023724B24446FE52 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				8F629C2FB21576FFE7E07016 /* Scoreboard */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
 		8BF7406AA971E9E73C2683F9 /* Tabs */ = {
 			isa = PBXGroup;
 			children = (
@@ -133,12 +149,24 @@
 			path = Tabs;
 			sourceTree = "<group>";
 		};
+		8F629C2FB21576FFE7E07016 /* Scoreboard */ = {
+			isa = PBXGroup;
+			children = (
+				1161598EB2C36CF02884CE16 /* CalendarSheetView.swift */,
+				EEFBBFA6E77E53AB07F363F8 /* DateStripView.swift */,
+				19FC9B6A9B2A13DFE30CA9C2 /* DateStripViewModel.swift */,
+				92F33CE0B415CC99B7FDDA2A /* ScoreboardViewModel.swift */,
+			);
+			path = Scoreboard;
+			sourceTree = "<group>";
+		};
 		AF81557981A8F69BD04CBEB6 /* BarDown */ = {
 			isa = PBXGroup;
 			children = (
 				F095E13490F78BE2F1A4CCEA /* Assets.xcassets */,
 				523969EF31D6B0AB66D80F9B /* BarDownApp.swift */,
 				D8A4138D6CA8505A5DC7259A /* ContentView.swift */,
+				8588AE68023724B24446FE52 /* Features */,
 				D48619D9B52AC1CB6FE9D0C3 /* Models */,
 				31F98EE83D9CE22FA5DAC4B0 /* Networking */,
 				790203C51DCEECC45634034D /* Preview Content */,
@@ -286,11 +314,15 @@
 			files = (
 				8B5B51312CFC7F2F64CBBA24 /* APIClient.swift in Sources */,
 				633E2899DBE9C7EE96522BFF /* BarDownApp.swift in Sources */,
+				ECA14BA8FB9BDA427F9B6F4B /* CalendarSheetView.swift in Sources */,
 				91E720BC6EA4D0B413BBF60C /* ContentView.swift in Sources */,
+				05C512EC741C2F8FF0567B60 /* DateStripView.swift in Sources */,
+				D72C93F9B16EABA1C820C16B /* DateStripViewModel.swift in Sources */,
 				4CE051E90D8913DAB7C6BB96 /* GameEndpoint.swift in Sources */,
 				D0C9D4C4B002FB28899AD171 /* GameModel.swift in Sources */,
 				8760B51733E1331C77F76DD4 /* RankingsTab.swift in Sources */,
 				6FD7D700A6473CAABA00D0C3 /* ScoreboardTab.swift in Sources */,
+				6FA18055659AF44452C88412 /* ScoreboardViewModel.swift in Sources */,
 				B52027274AF5FBC378DC203F /* SettingsTab.swift in Sources */,
 				5968F9C59B80301C849BC31E /* TeamModel.swift in Sources */,
 				9BD7AA50B1C9E8F225C915DA /* TeamsTab.swift in Sources */,
