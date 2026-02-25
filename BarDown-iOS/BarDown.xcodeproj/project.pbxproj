@@ -17,6 +17,7 @@
 		6FA18055659AF44452C88412 /* ScoreboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F33CE0B415CC99B7FDDA2A /* ScoreboardViewModel.swift */; };
 		6FD7D700A6473CAABA00D0C3 /* ScoreboardTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8A42FB163DAAFEE07A0C9D /* ScoreboardTab.swift */; };
 		72EE4086BEFEEBA1B8B9F30E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8771D06F4188016E33A7D7FA /* Preview Assets.xcassets */; };
+		7A011A11604C3F2AE1F9DEB7 /* GameCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FC1CE2750110FCDC1534A4 /* GameCardView.swift */; };
 		8760B51733E1331C77F76DD4 /* RankingsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00377A6878DFF83EB4C0A0D /* RankingsTab.swift */; };
 		8AADE8D2E572D303C6B91A01 /* GameModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9F7B0D1D1F84035F44D576E /* GameModelTests.swift */; };
 		8B5B51312CFC7F2F64CBBA24 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB21E7AD5660F34C33EB724 /* APIClient.swift */; };
@@ -33,6 +34,7 @@
 		ECA14BA8FB9BDA427F9B6F4B /* CalendarSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1161598EB2C36CF02884CE16 /* CalendarSheetView.swift */; };
 		F635413F07C6211CF6426AF7 /* ScoreboardViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62BEB9A9EF1C3CAEB951D67 /* ScoreboardViewModelTests.swift */; };
 		F9ADD240D7C8C4AA5565F526 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 8BF03DC6547D410849992934 /* Kingfisher */; };
+		FA7078348EDC41D7F1071D27 /* ScoreCenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F401D103B960F8F1C4779AC /* ScoreCenterView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +50,7 @@
 /* Begin PBXFileReference section */
 		006484B3F73032982001AC2C /* GlassKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = GlassKit; path = Packages/GlassKit; sourceTree = SOURCE_ROOT; };
 		03CBBA491E3D50B003EFCFDD /* GlassAuditTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassAuditTests.swift; sourceTree = "<group>"; };
+		0F401D103B960F8F1C4779AC /* ScoreCenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreCenterView.swift; sourceTree = "<group>"; };
 		1161598EB2C36CF02884CE16 /* CalendarSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSheetView.swift; sourceTree = "<group>"; };
 		19FC9B6A9B2A13DFE30CA9C2 /* DateStripViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateStripViewModel.swift; sourceTree = "<group>"; };
 		206D10892F0676FE8186B4AC /* games-response.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "games-response.json"; sourceTree = "<group>"; };
@@ -64,6 +67,7 @@
 		A346CA0BC3D166BB811B8DCB /* GameEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEndpoint.swift; sourceTree = "<group>"; };
 		A62BEB9A9EF1C3CAEB951D67 /* ScoreboardViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreboardViewModelTests.swift; sourceTree = "<group>"; };
 		B882045985E0A980A11BC41C /* TeamModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamModel.swift; sourceTree = "<group>"; };
+		C3FC1CE2750110FCDC1534A4 /* GameCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCardView.swift; sourceTree = "<group>"; };
 		D8A4138D6CA8505A5DC7259A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		DEEA9CB5E20AF031C7601DC9 /* TeamRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamRowView.swift; sourceTree = "<group>"; };
 		E00377A6878DFF83EB4C0A0D /* RankingsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingsTab.swift; sourceTree = "<group>"; };
@@ -161,8 +165,10 @@
 				1161598EB2C36CF02884CE16 /* CalendarSheetView.swift */,
 				EEFBBFA6E77E53AB07F363F8 /* DateStripView.swift */,
 				19FC9B6A9B2A13DFE30CA9C2 /* DateStripViewModel.swift */,
+				C3FC1CE2750110FCDC1534A4 /* GameCardView.swift */,
 				E9C2C3C100C87043AF6A6081 /* LiveIndicator.swift */,
 				92F33CE0B415CC99B7FDDA2A /* ScoreboardViewModel.swift */,
+				0F401D103B960F8F1C4779AC /* ScoreCenterView.swift */,
 				DEEA9CB5E20AF031C7601DC9 /* TeamRowView.swift */,
 			);
 			path = Scoreboard;
@@ -328,10 +334,12 @@
 				91E720BC6EA4D0B413BBF60C /* ContentView.swift in Sources */,
 				05C512EC741C2F8FF0567B60 /* DateStripView.swift in Sources */,
 				D72C93F9B16EABA1C820C16B /* DateStripViewModel.swift in Sources */,
+				7A011A11604C3F2AE1F9DEB7 /* GameCardView.swift in Sources */,
 				4CE051E90D8913DAB7C6BB96 /* GameEndpoint.swift in Sources */,
 				D0C9D4C4B002FB28899AD171 /* GameModel.swift in Sources */,
 				9AEA7473B6ACDFF4AC3EB7DD /* LiveIndicator.swift in Sources */,
 				8760B51733E1331C77F76DD4 /* RankingsTab.swift in Sources */,
+				FA7078348EDC41D7F1071D27 /* ScoreCenterView.swift in Sources */,
 				6FD7D700A6473CAABA00D0C3 /* ScoreboardTab.swift in Sources */,
 				6FA18055659AF44452C88412 /* ScoreboardViewModel.swift in Sources */,
 				B52027274AF5FBC378DC203F /* SettingsTab.swift in Sources */,
