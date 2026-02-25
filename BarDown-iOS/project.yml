@@ -11,6 +11,9 @@ settings:
 packages:
   GlassKit:
     path: Packages/GlassKit
+  Kingfisher:
+    url: https://github.com/onevcat/Kingfisher.git
+    minorVersion: "8.0.0"
 targets:
   BarDown:
     type: application
@@ -36,6 +39,7 @@ targets:
           API_KEY: ""
     dependencies:
       - package: GlassKit
+      - package: Kingfisher
   BarDownTests:
     type: bundle.unit-test
     platform: iOS
