@@ -79,6 +79,49 @@ struct GameModelTests {
         #expect(!away.name.isEmpty)
     }
 
+    @Test("Team logos are always renderable via source logo or fallback text")
+    func teamLogosAlwaysRenderable() throws {
+        let games = try loadFixture()
+        let teams = games.flatMap { [$0.homeTeam, $0.awayTeam] }
+        let allRenderable = teams.allSatisfy { team in
+            team.hasRenderableLogo
+        }
+        let allFallbacksNonEmpty = teams.allSatisfy { team in
+            !team.logoFallbackText.isEmpty
+        }
+        #expect(!teams.isEmpty)
+        #expect(allRenderable)
+        #expect(allFallbacksNonEmpty)
+    }
+
+    @Test("Fallback logo text resolves from abbreviation and team name")
+    func fallbackLogoTextResolution() {
+        let abbreviationBacked = TeamModel(
+            id: UUID(),
+            name: "Virginia Cavaliers",
+            abbreviation: "UVA",
+            conference: "ACC",
+            logoAssetName: nil,
+            record: nil,
+            ranking: nil
+        )
+
+        let nameBacked = TeamModel(
+            id: UUID(),
+            name: "North Carolina Tar Heels",
+            abbreviation: " ",
+            conference: "ACC",
+            logoAssetName: nil,
+            record: nil,
+            ranking: nil
+        )
+
+        #expect(abbreviationBacked.logoFallbackText == "UVA")
+        #expect(nameBacked.logoFallbackText == "NC")
+        #expect(abbreviationBacked.hasRenderableLogo)
+        #expect(nameBacked.hasRenderableLogo)
+    }
+
     @Test("GameStatus sorts live < scheduled < final")
     func gameStatusSortOrder() throws {
         let games = try loadFixture()

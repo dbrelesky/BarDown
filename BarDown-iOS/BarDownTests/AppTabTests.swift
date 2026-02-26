@@ -28,7 +28,7 @@ struct AppTabTests {
             (AppTab.scoreboard, "Scores"),
             (AppTab.teams, "Teams"),
             (AppTab.rankings, "Rankings"),
-            (AppTab.settings, "Settings"),
+            (AppTab.settings, "More"),
           ])
     func titles(tab: AppTab, expected: String) {
         #expect(tab.title == expected)
@@ -36,10 +36,10 @@ struct AppTabTests {
 
     @Test("Icons are valid SF Symbol names",
           arguments: [
-            (AppTab.scoreboard, "sportscourt.fill"),
-            (AppTab.teams, "heart.fill"),
-            (AppTab.rankings, "chart.bar.fill"),
-            (AppTab.settings, "gearshape.fill"),
+            (AppTab.scoreboard, "list.bullet.rectangle.portrait.fill"),
+            (AppTab.teams, "person.2.fill"),
+            (AppTab.rankings, "trophy.fill"),
+            (AppTab.settings, "line.3.horizontal"),
           ])
     func icons(tab: AppTab, expected: String) {
         #expect(tab.icon == expected)

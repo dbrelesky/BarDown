@@ -24,38 +24,80 @@ struct ScoreCenterView: View {
     }
 
     var body: some View {
-        VStack(spacing: 2) {
-            switch game.gameStatus {
-            case .live:
-                // Score display for live game
-                HStack(spacing: 4) {
-                    LiveIndicator()
-                    Text("LIVE")
-                        .font(.caption2)
-                        .fontWeight(.bold)
-                        .foregroundStyle(.red)
-                }
-                if let period = game.period, let clock = game.clock {
-                    Text("\(period)  \(clock)")
-                        .font(.caption2)
-                        .foregroundStyle(.secondary)
-                        .monospacedDigit()
-                }
-
-            case .final_:
-                Text("FINAL")
-                    .font(.caption2)
-                    .fontWeight(.semibold)
-                    .foregroundStyle(.secondary)
-
-            case .scheduled:
+        VStack(spacing: 5) {
+            if game.isScheduled {
                 Text(scheduledTimeLabel)
-                    .font(.callout)
-                    .fontWeight(.medium)
-                    .foregroundStyle(.primary)
+                    .font(.system(size: 32, weight: .heavy, design: .rounded))
+                    .monospacedDigit()
+                    .fontWeight(.semibold)
+                    .foregroundStyle(.white.opacity(0.95))
+
+                Text("SCHEDULED")
+                    .font(.caption2.weight(.semibold))
+                    .foregroundStyle(Color.white.opacity(0.62))
+                    .tracking(1.1)
+            } else {
+                HStack(spacing: 2) {
+                    Text("\(game.awayScore)")
+                        .fontWeight(.bold)
+                        .foregroundStyle(.white)
+                    Text("-")
+                        .foregroundStyle(Color.white.opacity(0.8))
+                    Text("\(game.homeScore)")
+                        .fontWeight(.bold)
+                        .foregroundStyle(.white)
+                }
+                .font(.system(size: 50, weight: .black, design: .rounded))
+                .monospacedDigit()
+            }
+
+            if game.isLive {
+                LiveClockChip(period: game.period, clock: game.clock)
+            } else if game.isFinal {
+                Text("FINAL")
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(Color.white.opacity(0.72))
+                    .tracking(1)
             }
         }
-        .frame(maxWidth: .infinity)
         .padding(.vertical, 4)
+    }
+}
+
+private struct LiveClockChip: View {
+    let period: String?
+    let clock: String?
+
+    private var label: String {
+        let periodLabel = period?.trimmingCharacters(in: .whitespacesAndNewlines)
+        let clockLabel = clock?.trimmingCharacters(in: .whitespacesAndNewlines)
+
+        if let periodLabel, !periodLabel.isEmpty, let clockLabel, !clockLabel.isEmpty {
+            return "\(periodLabel) \(clockLabel)"
+        }
+        if let periodLabel, !periodLabel.isEmpty {
+            return periodLabel
+        }
+        if let clockLabel, !clockLabel.isEmpty {
+            return clockLabel
+        }
+        return "LIVE"
+    }
+
+    var body: some View {
+        HStack(spacing: 6) {
+            LiveIndicator(size: 7, color: .red)
+            Text(label.uppercased())
+                .font(.caption2.weight(.semibold))
+                .foregroundStyle(Color.white.opacity(0.88))
+                .monospacedDigit()
+        }
+        .padding(.horizontal, 8)
+        .padding(.vertical, 3)
+        .background(Capsule().fill(Color.white.opacity(0.10)))
+        .overlay(
+            Capsule()
+                .stroke(Color.white.opacity(0.18), lineWidth: 1)
+        )
     }
 }

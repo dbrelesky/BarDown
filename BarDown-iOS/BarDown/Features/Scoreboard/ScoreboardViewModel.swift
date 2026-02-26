@@ -57,19 +57,15 @@ final class ScoreboardViewModel {
     }
 
     func loadAvailableDates() async {
+        let today = Self.easternStartOfToday()
         var cal = Calendar(identifier: .gregorian)
         cal.timeZone = TimeZone(identifier: "America/New_York")!
-        let today = Self.easternStartOfToday()
         let from = cal.date(byAdding: .day, value: -30, to: today)!
         let to   = cal.date(byAdding: .day, value:  30, to: today)!
 
         do {
-            let formatter = DateFormatter()
-            formatter.dateFormat = "yyyy-MM-dd"
-            formatter.timeZone = TimeZone(identifier: "America/New_York")!
-
             let dateStrings = try await apiClient.fetchAvailableDates(from: from, to: to)
-            gameDates = dateStrings.compactMap { formatter.date(from: $0) }
+            applyAvailableDateStrings(dateStrings)
         } catch {
             // Non-fatal: date strip will show empty, user can still navigate
             gameDates = []
@@ -86,6 +82,17 @@ final class ScoreboardViewModel {
     /// Directly set an error message — used in tests.
     func loadError(_ message: String) {
         state = .error(message)
+    }
+
+    /// Applies backend `yyyy-MM-dd` date strings to the date strip/calendar model:
+    /// deduplicated and sorted in ascending order.
+    func applyAvailableDateStrings(_ dateStrings: [String]) {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.timeZone = TimeZone(identifier: "America/New_York")!
+
+        let parsed = dateStrings.compactMap { formatter.date(from: $0) }
+        gameDates = Array(Set(parsed)).sorted()
     }
 
     // MARK: - Private Helpers

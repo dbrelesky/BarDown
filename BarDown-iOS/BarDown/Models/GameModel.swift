@@ -20,8 +20,8 @@ struct GameModel: Decodable, Identifiable {
     let period: String?
     let clock: String?
     let startTime: Date
-    // quarterScores present in DTO but used by Phase 5 (Game Detail) — decode for completeness
     let quarterScores: [QuarterScoreModel]
+    let boxScoreURL: String?
 
     var gameStatus: GameStatus {
         switch status {
@@ -54,7 +54,8 @@ extension GameModel {
             period: nil,
             clock: nil,
             startTime: .now,
-            quarterScores: []
+            quarterScores: [],
+            boxScoreURL: nil
         )
     }
 }

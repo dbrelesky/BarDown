@@ -23,6 +23,7 @@ struct GameResponse: Content {
     let clock: String?
     let startTime: Date
     let quarterScores: [QuarterScoreDTO]
+    let boxScoreURL: String?
 
     init(from game: Game) {
         self.id = game.id!
@@ -35,5 +36,8 @@ struct GameResponse: Content {
         self.clock = game.clock
         self.startTime = game.startTime
         self.quarterScores = game.quarterScores.map { QuarterScoreDTO(from: $0) }
+        self.boxScoreURL = game.ncaaGameID.map {
+            "https://www.ncaa.com/game/lacrosse-men/d1/\($0)"
+        }
     }
 }

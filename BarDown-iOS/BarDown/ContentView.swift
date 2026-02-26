@@ -8,16 +8,16 @@ enum AppTab: String, CaseIterable {
         case .scoreboard: return "Scores"
         case .teams: return "Teams"
         case .rankings: return "Rankings"
-        case .settings: return "Settings"
+        case .settings: return "More"
         }
     }
 
     var icon: String {
         switch self {
-        case .scoreboard: return "sportscourt.fill"
-        case .teams: return "heart.fill"
-        case .rankings: return "chart.bar.fill"
-        case .settings: return "gearshape.fill"
+        case .scoreboard: return "list.bullet.rectangle.portrait.fill"
+        case .teams: return "person.2.fill"
+        case .rankings: return "trophy.fill"
+        case .settings: return "line.3.horizontal"
         }
     }
 }
@@ -40,6 +40,7 @@ struct ContentView: View {
                 SettingsTab()
             }
         }
+        .tint(Color(red: 0.31, green: 0.92, blue: 0.56))
     }
 }
 

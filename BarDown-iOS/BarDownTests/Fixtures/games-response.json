@@ -29,7 +29,8 @@
       { "quarter": 1, "homeScore": 3, "awayScore": 2 },
       { "quarter": 2, "homeScore": 2, "awayScore": 1 },
       { "quarter": 3, "homeScore": 3, "awayScore": 3 }
-    ]
+    ],
+    "boxScoreURL": "https://www.ncaa.com/game/lacrosse-men/d1/12345"
   },
   {
     "id": "22222222-2222-2222-2222-222222222222",
@@ -57,7 +58,8 @@
     "period": null,
     "clock": null,
     "startTime": "2026-03-15T20:00:00Z",
-    "quarterScores": []
+    "quarterScores": [],
+    "boxScoreURL": null
   },
   {
     "id": "33333333-3333-3333-3333-333333333333",
@@ -90,6 +92,7 @@
       { "quarter": 2, "homeScore": 3, "awayScore": 3 },
       { "quarter": 3, "homeScore": 2, "awayScore": 2 },
       { "quarter": 4, "homeScore": 3, "awayScore": 2 }
-    ]
+    ],
+    "boxScoreURL": "https://www.ncaa.com/game/lacrosse-men/d1/67890"
   }
 ]

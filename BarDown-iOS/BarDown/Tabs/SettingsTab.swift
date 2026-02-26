@@ -19,7 +19,7 @@ struct SettingsTab: View {
                     Label("Acknowledgements", systemImage: "heart.fill")
                 }
             }
-            .navigationTitle("Settings")
+            .navigationTitle("More")
         }
     }
 }

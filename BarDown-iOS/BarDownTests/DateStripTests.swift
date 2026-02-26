@@ -69,4 +69,18 @@ struct DateStripTests {
         // Must not accidentally roll into March 2
         #expect(!label.contains("2"))
     }
+
+    @Test("Date strip supports both past and future game days")
+    func pastAndFutureDatesAreRetained() {
+        let gameDates: [Date] = [
+            date(from: "2026-03-10"),
+            date(from: "2026-03-15"),
+            date(from: "2026-03-22"),
+        ]
+        let vm = DateStripViewModel(gameDates: gameDates)
+
+        #expect(vm.displayDates.contains(date(from: "2026-03-10")))
+        #expect(vm.displayDates.contains(date(from: "2026-03-22")))
+        #expect(vm.displayDates.count == 3)
+    }
 }

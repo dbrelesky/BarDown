@@ -31,7 +31,11 @@ struct NCAAAPIScraper {
     private static let seasonYear = 2025
     private static let graphqlURL = "https://sdataprod.ncaa.com"
     private static let scoreboardPageURL = "https://www.ncaa.com/scoreboard/lacrosse-men/d1"
-    private static let logoBaseURL = "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl"
+    private static let ncaaLogoBase = "https://www.ncaa.com/sites/default/files/images/logos/schools/bgl"
+    /// NCAA serves SVGs which UIImage/Kingfisher can't render. Proxy through wsrv.nl to get PNGs.
+    private static func logoPNGURL(seoname: String) -> String {
+        "https://wsrv.nl/?url=\(ncaaLogoBase)/\(seoname).svg&output=png&w=128&h=128"
+    }
 
     // MARK: - GraphQL Response Models
 
@@ -226,8 +230,8 @@ struct NCAAAPIScraper {
             awayRank: away.teamRank.map { String($0) },
             homeRecord: nil,
             awayRecord: nil,
-            homeLogoURL: "\(Self.logoBaseURL)/\(home.seoname).svg",
-            awayLogoURL: "\(Self.logoBaseURL)/\(away.seoname).svg"
+            homeLogoURL: Self.logoPNGURL(seoname: home.seoname),
+            awayLogoURL: Self.logoPNGURL(seoname: away.seoname)
         )
     }
 }

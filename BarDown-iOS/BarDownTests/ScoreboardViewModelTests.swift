@@ -78,6 +78,52 @@ struct ScoreboardViewModelTests {
         let todayStart = calendar.startOfDay(for: Date())
         #expect(vm.selectedDate == todayStart)
     }
+
+    @Test("applyAvailableDateStrings supports backward/forward calendar navigation dates")
+    @MainActor
+    func availableDatesIncludePastAndFuture() {
+        let vm = ScoreboardViewModel()
+
+        vm.applyAvailableDateStrings([
+            "2026-03-17", // future
+            "2026-03-10", // past
+            "2026-03-15", // today-ish anchor
+            "2026-03-10", // duplicate
+        ])
+
+        #expect(vm.gameDates.count == 3)
+        #expect(vm.gameDates == vm.gameDates.sorted())
+        #expect(vm.gameDates.first! < vm.gameDates.last!)
+    }
+
+    @Test("Loaded schedule includes upcoming and completed games with expected score behavior")
+    @MainActor
+    func loadedGamesContainUpcomingAndCompletedStates() async throws {
+        let vm = ScoreboardViewModel()
+        let url = Bundle(for: ScoreboardViewModelTestsHelper.self).url(
+            forResource: "games-response",
+            withExtension: "json"
+        )!
+        let data = try Data(contentsOf: url)
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+        let games = try decoder.decode([GameModel].self, from: data)
+
+        await vm.loadGames(games)
+
+        guard case .loaded(let loadedGames) = vm.state else {
+            Issue.record("Expected loaded state")
+            return
+        }
+
+        let scheduled = loadedGames.filter(\.isScheduled)
+        let completed = loadedGames.filter(\.isFinal)
+
+        #expect(!scheduled.isEmpty)
+        #expect(!completed.isEmpty)
+        #expect(scheduled.allSatisfy { $0.homeScore == 0 && $0.awayScore == 0 })
+        #expect(completed.allSatisfy { $0.homeScore > 0 || $0.awayScore > 0 })
+    }
 }
 
 // Objective-C class for Bundle(for:) fixture loading
